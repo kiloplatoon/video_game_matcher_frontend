@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import Login from './Login';
 
-const LoginLayout = () => {
+const LoginLayout = ({ handleLogin }) => {
+
+
+
   return (
     <div className='loginBG'>
       <div className='loginLayout'>
@@ -12,7 +15,7 @@ const LoginLayout = () => {
               <h1>Hello World</h1>
             </div>
             <div className='child-2'>
-              <Login />
+              <Login handleLogin = { handleLogin }/>
             </div>
           </div>
         </div>
