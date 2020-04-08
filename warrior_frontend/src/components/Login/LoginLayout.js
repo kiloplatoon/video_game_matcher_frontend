@@ -10,10 +10,7 @@ const LoginLayout = ({ handleLogin }) => {
     <div className='loginBG'>
       <div className='loginLayout'>
         <div class="jumbotron jumbotron-fluid">
-          <div class="container parent">
-            <div className='child-1'>
-              <h1>Hello World</h1>
-            </div>
+          <div class="container">
             <div className='child-2'>
               <Login handleLogin = { handleLogin }/>
             </div>
