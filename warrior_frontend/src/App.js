@@ -28,6 +28,17 @@ function App() {
       setIsAuthenticated(true)
     }
 
+    let res = await fetch('http://localhost:8000/auth/current_user/', {
+      method : 'GET',
+      headers : {
+        'Accept' : 'application/json',
+        'content-type' : 'application/json',
+        'Authorization' : `token ${localStorage.getItem('token')}`
+      }
+    })
+    let current_user = await res.json()
+    console.log('this is the current_user: ', current_user)
+
   }
 
   const renderLogin = () => {
