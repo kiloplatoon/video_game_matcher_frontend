@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import LoginLayout from './components/Login/LoginLayout';
 import RegistrationLayout from './components/Registration/RegistratonLayout';
 import UserAPI from './api/UserAPI';
-import { FormCheck } from 'react-bootstrap';
 
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-
+  const [isRegistered, setIsRegistered] = useState(false)
 
 
   const handleLogin = async (e) => {
@@ -59,12 +58,12 @@ function App() {
         'password' : e.target.password.value,
         're_password' : e.target.passwordCheck.value
       }
-      console.log(newUser)
+      // console.log(newUser)
       let data = await UserAPI.createNewUser(newUser)
-      console.log(data)
+      console.log('data: ', data)
 
-    } catch (e) {
-      console.log(e)
+    } catch (err) {
+      console.log('e: ', err)
     }
   }
 
