@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import RegistrationLayout from './components/Registration/RegistratonLayout';
+import Registration from './components/Registration';
 import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile';
@@ -72,7 +72,7 @@ function App() {
 
   const renderRegistration = () => {
     return (
-      <RegistrationLayout handleRegistration = {handleRegistration} />
+      <Registration handleRegistration = {handleRegistration} />
     )
   }
 
