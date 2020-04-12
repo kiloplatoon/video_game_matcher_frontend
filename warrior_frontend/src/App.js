@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import RegistrationLayout from './components/Registration/RegistratonLayout';
 import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile';

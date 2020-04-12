@@ -67,6 +67,3 @@ const Messages = () => (
 );
 
 export default Messages;
-
-import Messages from './components/Chat/Messages'
-localStorage.setItem('stream_token', data['stream_token'])
