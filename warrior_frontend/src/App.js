@@ -1,16 +1,25 @@
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import LoginLayout from './components/Login/LoginLayout';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import RegistrationLayout from './components/Registration/RegistratonLayout';
 import UserAPI from './api/UserAPI';
-import { FormCheck } from 'react-bootstrap';
+import LandingPage from './components/LandingPage/LandingPage';
+import Profile from './components/Profile';
+import Navigation from './components/Navigation';
+import Messages from './components/Chat/Messages'
 
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-
+  const renderLandingPage = () => {
+    return (
+    <LandingPage
+      handleLogin = {handleLogin}
+    />
+    )
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -25,6 +34,8 @@ function App() {
 
     if (!data['non_field_errors']) {
       localStorage.setItem('token', data['auth_token'])
+      localStorage.setItem('stream_token', data['stream_token'])
+      localStorage.setItem('isAuthenticated', true)
       setIsAuthenticated(true)
     }
 
@@ -37,14 +48,9 @@ function App() {
       }
     })
     let current_user = await res.json()
+    localStorage.setItem('current_user', current_user['username'])
     console.log('this is the current_user: ', current_user)
 
-  }
-
-  const renderLogin = () => {
-    return (
-      <LoginLayout handleLogin = {handleLogin} />
-    )
   }
 
   const handleRegistration = async (e) => {
@@ -59,12 +65,12 @@ function App() {
         'password' : e.target.password.value,
         're_password' : e.target.passwordCheck.value
       }
-      console.log(newUser)
+      // console.log(newUser)
       let data = await UserAPI.createNewUser(newUser)
-      console.log(data)
+      console.log('data: ', data)
 
-    } catch (e) {
-      console.log(e)
+    } catch (err) {
+      console.log('e: ', err)
     }
   }
 
@@ -74,14 +80,24 @@ function App() {
     )
   }
 
-
+  const handleLogout = () => {
+    localStorage.clear()
+    setIsAuthenticated(false)
+  }
 
 
   return (
     <div>
       <Router>
-        <Route exact path = '/login' render = {renderLogin} />
+        <Navigation 
+          isAuthenticated = {isAuthenticated}
+          handleLogout = {handleLogout}
+        />
+
+        <Route exact path = '/' render = {renderLandingPage} />
+        <Route exact path = '/profile' component = {Profile} />
         <Route exact path = '/registration' render = {renderRegistration} />
+        <Route exact path = '/chat' component = {Messages} />
       </Router>
     </div>
   );
