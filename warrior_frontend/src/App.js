@@ -30,7 +30,7 @@ function App() {
     let data = await UserAPI.fetchUserToken(loginCredentials)
     console.log(data)
 
-    if (!data['non_field_errors']) {
+    if (data['auth_token']) {
       localStorage.setItem('token', data['auth_token'])
       localStorage.setItem('isAuthenticated', true)
       setIsAuthenticated(true)
@@ -61,9 +61,11 @@ function App() {
         'password' : e.target.password.value,
         're_password' : e.target.passwordCheck.value
       }
-      // console.log(newUser)
       let data = await UserAPI.createNewUser(newUser)
-      console.log('data: ', data)
+      console.log(data)
+
+      let res = await UserAPI.linkUserToProfile(data.id)
+      
 
     } catch (err) {
       console.log('e: ', err)
@@ -83,7 +85,7 @@ function App() {
 
 
   return (
-    <div>
+    <div >
       <Router>
         <Navigation 
           isAuthenticated = {isAuthenticated}
@@ -91,7 +93,7 @@ function App() {
         />
 
         <Route exact path = '/' render = {renderLandingPage} />
-        <Route exact path = '/profile' component = {Profile} />
+        <Route exact path = '/profile/:userId' component = {Profile} />
         <Route exact path = '/registration' render = {renderRegistration} />
       </Router>
     </div>
