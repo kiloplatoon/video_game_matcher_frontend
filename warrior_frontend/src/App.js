@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import Registration from './components/Registration';
 import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile';
@@ -31,7 +31,7 @@ function App() {
     let data = await UserAPI.fetchUserToken(loginCredentials)
     console.log(data)
 
-    if (!data['non_field_errors']) {
+    if (data['auth_token']) {
       localStorage.setItem('token', data['auth_token'])
       localStorage.setItem('stream_token', data['stream_token'])
       localStorage.setItem('isAuthenticated', true)
@@ -75,7 +75,7 @@ function App() {
 
   const renderRegistration = () => {
     return (
-      <RegistrationLayout handleRegistration = {handleRegistration} />
+      <Registration handleRegistration = {handleRegistration} />
     )
   }
 
@@ -85,6 +85,7 @@ function App() {
   }
 
 
+
   return (
     <div>
       <Router>
@@ -92,11 +93,13 @@ function App() {
           isAuthenticated = {isAuthenticated}
           handleLogout = {handleLogout}
         />
-
-        <Route exact path = '/' render = {renderLandingPage} />
-        <Route exact path = '/profile' component = {Profile} />
-        <Route exact path = '/registration' render = {renderRegistration} />
-        <Route exact path = '/chat' component = {Messages} />
+        <Switch>
+          <Route exact path = '/' render = {renderLandingPage} />
+          <Route exact path = '/profile' component = {Profile} />
+          <Route exact path = '/registration' render = {renderRegistration} />
+          <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
+          
+        </Switch>
       </Router>
     </div>
   );
