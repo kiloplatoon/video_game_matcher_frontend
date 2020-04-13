@@ -7,6 +7,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile';
 import Navigation from './components/Navigation';
 import Messages from './components/Chat/Messages'
+import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
     })
     let current_user = await res.json()
     localStorage.setItem('current_user', current_user['username'])
+    localStorage.setItem('id', current_user['id'])
     console.log('this is the current_user: ', current_user)
 
   }
@@ -96,6 +98,7 @@ function App() {
         <Switch>
           <Route exact path = '/' render = {renderLandingPage} />
           <Route exact path = '/profile' component = {Profile} />
+          <Route exact path = '/profile/friendships' component = {FriendshipsPage} />
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
           
