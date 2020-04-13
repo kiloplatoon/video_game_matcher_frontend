@@ -1,6 +1,6 @@
 import React from 'react';
 import Login from '../Login/Login';
-import { Redirect } from 'react-router-dom';
+import { Container, Row, Col, } from 'react-bootstrap';
 
 const LandingPage = (props) => {
   return (
@@ -15,7 +15,9 @@ const LandingPage = (props) => {
           />
           </>
         :
-        <Redirect to = '/profile' />
+        <Container fluid>
+
+        </Container>
       }
     </div>
   )
