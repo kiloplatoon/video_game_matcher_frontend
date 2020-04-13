@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import Registration from './components/Registration';
 import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
-import Profile from './components/Profile';
+import Profile from './components/Profile/Profile';
 import Navigation from './components/Navigation';
+import Messages from './components/Chat/Messages';
 
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [userProfileInfo, setUserProfileInfo] = useState([])
+
+  const fetchUserProfileInfo = async () => {
+    let res = await fetch(`http://localhost:8000/profile/${localStorage.getItem('current_user_id')}/details/`)
+    let data = await res.json()
+    setUserProfileInfo(data)
+  }
 
   const renderLandingPage = () => {
     return (
@@ -32,6 +40,7 @@ function App() {
 
     if (data['auth_token']) {
       localStorage.setItem('token', data['auth_token'])
+      localStorage.setItem('stream_token', data['stream_token'])
       localStorage.setItem('isAuthenticated', true)
       setIsAuthenticated(true)
     }
@@ -45,7 +54,10 @@ function App() {
       }
     })
     let current_user = await res.json()
+    localStorage.setItem('current_user', current_user['username'])
+    localStorage.setItem('current_user_id', current_user['id'])
     console.log('this is the current_user: ', current_user)
+    fetchUserProfileInfo()
 
   }
 
@@ -83,6 +95,14 @@ function App() {
     setIsAuthenticated(false)
   }
 
+  const renderProfile = () => {
+    return (
+      <Profile
+        userProfileInfo = {userProfileInfo}
+      />
+    )
+  }
+
 
   return (
     <div >
@@ -92,12 +112,17 @@ function App() {
           handleLogout = {handleLogout}
         />
 
-        <Route exact path = '/' render = {renderLandingPage} />
-        <Route exact path = '/profile/:userId' component = {Profile} />
-        <Route exact path = '/registration' render = {renderRegistration} />
+        <Switch>
+          <Route exact path = '/' render = {renderLandingPage} />
+          <Route exact path = '/profile/:username' render = {renderProfile} />
+          <Route exact path = '/registration' render = {renderRegistration} />
+          <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
+        </Switch>
       </Router>
     </div>
+
   );
+
 }
 
 export default App;
