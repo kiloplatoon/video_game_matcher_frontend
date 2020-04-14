@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Login from '../Login/Login';
-import { Container, Row, Col, } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 const LandingPage = (props) => {
   return (
@@ -15,9 +15,7 @@ const LandingPage = (props) => {
           />
           </>
         :
-        <Container fluid>
-
-        </Container>
+          <Redirect to = '/profile' />
       }
     </div>
   )
