@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Login from '../Login/Login';
 import { Redirect } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const LandingPage = (props) => {
           />
           </>
         :
-        <Redirect to = '/profile' />
+          <Redirect to = '/profile' />
       }
     </div>
   )
