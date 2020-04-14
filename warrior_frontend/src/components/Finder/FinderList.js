@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap'
 
-const FinderList = ({ profiles }) => {
-
+const FinderList = ({ profiles, platform, game, difficulty }) => {
   const renderProfilesList = () => {
     let profilesListArr = []
     profiles.map((profile, id) => {
+      if (profile.game === game && profile.platform === platform && profile.casual_competitive === difficulty) {
       profilesListArr.push(
         <Card key={id}>
-          <Card.Img variant="top" src={profile.profile_picture} />
+          {/* <Card.Img variant="top" src={profile.profile_picture} /> */}
           <Card.Body>
             <Card.Title>{profile.user.username}</Card.Title>
             <Card.Text>
@@ -24,6 +24,7 @@ const FinderList = ({ profiles }) => {
           <Button variant="primary">Visit Profile</Button>
         </Card>
       )
+      }
     })
     return profilesListArr
   }
