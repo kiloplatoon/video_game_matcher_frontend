@@ -6,7 +6,8 @@ import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
 import Navigation from './components/Navigation';
-import Messages from './components/Chat/Messages';
+import Messages from './components/Chat/Messages'
+import Finder from './components/Finder/Finder'
 
 function App() {
 
@@ -120,6 +121,7 @@ function App() {
           <Route exact path = '/profile/:userId/edit' />
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
+          <Route exact path = '/finder' component = {Finder} />
         </Switch>
       </Router>
     </div>
