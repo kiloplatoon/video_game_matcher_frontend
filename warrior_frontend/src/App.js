@@ -39,7 +39,7 @@ function App() {
       setIsAuthenticated(true)
     }
 
-    let res = await fetch('http://localhost:8000/auth/current_user/', {
+    let res = await fetch('http://localhost:8000/auth/current_user', {
       method : 'GET',
       headers : {
         'Accept' : 'application/json',
@@ -47,6 +47,9 @@ function App() {
         'Authorization' : `token ${localStorage.getItem('token')}`
       }
     })
+
+
+
     let current_user = await res.json()
     localStorage.setItem('current_user', current_user['username'])
     localStorage.setItem('id', current_user['id'])
@@ -95,13 +98,13 @@ function App() {
           isAuthenticated = {isAuthenticated}
           handleLogout = {handleLogout}
         />
-        <Switch>
-          <Route exact path = '/' render = {renderLandingPage} />
-          <Route exact path = '/profile' component = {Profile} />
-          <Route exact path = '/profile/friendships' component = {FriendshipsPage} />
+        <Switch>ted = {isAuthenticated} />
+        <Route exact path = '/' render = {renderLandingPage} />
+          <Route exact path = '/profile' render = {renderProfile} />
+          <Route exact path = '/profile/:userId/edit' />
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
-          
+          <Route exact path = '/finder' component = {Finder} />
         </Switch>
       </Router>
     </div>

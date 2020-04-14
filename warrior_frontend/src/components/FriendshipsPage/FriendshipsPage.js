@@ -20,10 +20,21 @@ const createNewUser = async (userObj) => {
 }
 
 const getFriendsList = async (userObj) => {
-  let res = await fetch('http://localhost:8000/friendships/$(user_id)/friends_list', {
-    method: ''
+  let res = fetch('http://localhost:8000/friendships/$(user_id)/friends_list', {
+    method: 'GET',
   })
 }
+
+
+let temp =  fetch('http://localhost:8000/friendships/${user_id}/friends_list', {
+    method: 'GET',
+  })
+
+  
+
+console.log("username = ", username)
+console.log("user_id = ", user_id)
+console.log("temp = ", temp)
 
 const FriendshipsPage = (props) => {
   return (
