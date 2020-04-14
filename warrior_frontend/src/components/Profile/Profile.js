@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import UserAPI from '../../api/UserAPI';
 import './Profile.css';
 
 function Profile() {

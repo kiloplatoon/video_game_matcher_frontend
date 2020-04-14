@@ -38,11 +38,30 @@ const linkUserToProfile = async (userID) => {
   console.log(data)
 }
 
+const fetchCurrentUser = async () => {
+  let res = await fetch('http://localhost:8000/auth/current_user/', {
+  method : 'GET',
+  headers : {
+    'Accept' : 'application/json',
+    'content-type' : 'application/json',
+    'Authorization' : `token ${localStorage.getItem('token')}`
+  }
+})
+  let data = await res.json()
+  return data
+}
 
+const fetchProfileDetails = async (userId) => {
+  let res = await fetch(`http://localhost:8000/profile/${userId}/details/`)
+  let data = await res.json()
+  return data
+}
 
 export default {
   fetchUserToken,
   createNewUser,
   fetchAllProfiles,
   linkUserToProfile,
+  fetchCurrentUser,
+  fetchProfileDetails,
 }
