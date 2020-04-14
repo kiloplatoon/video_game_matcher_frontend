@@ -7,6 +7,8 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
 import Navigation from './components/Navigation';
 import Messages from './components/Chat/Messages'
+import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
+import Messages from './components/Chat/Messages';
 import Finder from './components/Finder/Finder'
 
 function App() {
@@ -57,7 +59,11 @@ function App() {
     })
     let current_user = await res.json()
     localStorage.setItem('current_user', current_user['username'])
+<<<<<<< HEAD
+    localStorage.setItem('id', current_user['id'])
+=======
     localStorage.setItem('current_user_id', current_user['id'])
+>>>>>>> random
     console.log('this is the current_user: ', current_user)
     fetchUserProfileInfo(current_user['id'])
 
@@ -117,8 +123,13 @@ function App() {
 
         <Switch>
           <Route exact path = '/' render = {renderLandingPage} />
+<<<<<<< HEAD
+          <Route exact path = '/profile' component = {Profile} />
+          <Route exact path = '/profile/friendships' component = {FriendshipsPage} />
+=======
           <Route exact path = '/profile' render = {renderProfile} />
           <Route exact path = '/profile/:userId/edit' />
+>>>>>>> random
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
           <Route exact path = '/finder' component = {Finder} />
