@@ -6,6 +6,24 @@ import UserAPI from '../../api/UserAPI';
 const username = localStorage.getItem("current_user")
 const user_id = localStorage.getItem("id")
 
+const createNewUser = async (userObj) => {
+  let res = await fetch('http://localhost:8000/auth/users/', {
+    method : 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body : JSON.stringify(userObj)
+  })
+  let data = await res.json()
+  return data
+}
+
+const getFriendsList = async (userObj) => {
+  let res = await fetch('http://localhost:8000/friendships/$(user_id)/friends_list', {
+    method: ''
+  })
+}
 
 const FriendshipsPage = (props) => {
   return (
