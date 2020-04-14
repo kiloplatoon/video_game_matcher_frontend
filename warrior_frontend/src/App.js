@@ -9,6 +9,7 @@ import Navigation from './components/Navigation';
 import Messages from './components/Chat/Messages'
 import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import Messages from './components/Chat/Messages';
+import Finder from './components/Finder/Finder'
 
 function App() {
 
@@ -131,6 +132,7 @@ function App() {
 >>>>>>> random
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
+          <Route exact path = '/finder' component = {Finder} />
         </Switch>
       </Router>
     </div>

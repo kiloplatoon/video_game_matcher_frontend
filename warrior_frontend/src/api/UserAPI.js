@@ -1,3 +1,5 @@
+const URL = "http://localhost:8000/"
+
 const fetchUserToken = async (loginCredentials) => {
   let res = await fetch('http://localhost:8000/auth/token/login/', {
     method : 'POST',
@@ -8,6 +10,12 @@ const fetchUserToken = async (loginCredentials) => {
     body : JSON.stringify(loginCredentials)
   })
   let data = await res.json()
+  return data
+}
+
+const fetchAllProfiles = async () => {
+  let response = await fetch(`${URL}profile/list`);
+  let data = await response.json();
   return data
 }
 
@@ -34,5 +42,6 @@ const linkUserToProfile = async (userID) => {
 export default {
   fetchUserToken,
   createNewUser,
+  fetchAllProfiles,
   linkUserToProfile,
 }
