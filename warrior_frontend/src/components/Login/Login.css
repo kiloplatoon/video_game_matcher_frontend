@@ -1,0 +1,21 @@
+.loginBG {
+  height: 100vh;
+  background: url('../../images/bg-large.jpg') no-repeat 20% 25% fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.loginLayout {
+  position: absolute;
+  left: 50%; 
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.parent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
