@@ -5,8 +5,8 @@ import Registration from './components/Registration';
 import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
+import ProfileEdit from './components/ProfileEdit';
 import Navigation from './components/Navigation';
-import Messages from './components/Chat/Messages'
 import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import Messages from './components/Chat/Messages';
 import Finder from './components/Finder/Finder'
@@ -14,14 +14,6 @@ import Finder from './components/Finder/Finder'
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [userProfileInfo, setUserProfileInfo] = useState([])
-
-  const fetchUserProfileInfo = async (userId) => {
-    let res = await fetch(`http://localhost:8000/profile/${userId}/details/`)
-    let data = await res.json()
-    setUserProfileInfo(data)
-    console.log('userProfInfoData: ', data)
-  }
 
   const renderLandingPage = () => {
     return (
@@ -59,13 +51,8 @@ function App() {
     })
     let current_user = await res.json()
     localStorage.setItem('current_user', current_user['username'])
-<<<<<<< HEAD
-    localStorage.setItem('id', current_user['id'])
-=======
     localStorage.setItem('current_user_id', current_user['id'])
->>>>>>> random
     console.log('this is the current_user: ', current_user)
-    fetchUserProfileInfo(current_user['id'])
 
   }
 
@@ -103,16 +90,6 @@ function App() {
     setIsAuthenticated(false)
   }
 
-  const renderProfile = () => {
-    return (
-      <Profile
-        fetchUserProfileInfo = {fetchUserProfileInfo}
-        userProfileInfo = {userProfileInfo}
-      />
-    )
-  }
-
-
   return (
     <div >
       <Router>
@@ -123,13 +100,9 @@ function App() {
 
         <Switch>
           <Route exact path = '/' render = {renderLandingPage} />
-<<<<<<< HEAD
-          <Route exact path = '/profile' component = {Profile} />
-          <Route exact path = '/profile/friendships' component = {FriendshipsPage} />
-=======
-          <Route exact path = '/profile' render = {renderProfile} />
-          <Route exact path = '/profile/:userId/edit' />
->>>>>>> random
+          <Route exact path = '/profile/:userId' component = {Profile} />
+          <Route exact path = '/profile/:userId/friendships' component = {FriendshipsPage} />
+          <Route exact path = '/profile/:userId/edit' component = {ProfileEdit} />
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
           <Route exact path = '/finder' component = {Finder} />
