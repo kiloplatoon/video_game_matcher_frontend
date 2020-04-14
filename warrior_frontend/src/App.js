@@ -13,10 +13,11 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [userProfileInfo, setUserProfileInfo] = useState([])
 
-  const fetchUserProfileInfo = async () => {
-    let res = await fetch(`http://localhost:8000/profile/${localStorage.getItem('current_user_id')}/details/`)
+  const fetchUserProfileInfo = async (userId) => {
+    let res = await fetch(`http://localhost:8000/profile/${userId}/details/`)
     let data = await res.json()
     setUserProfileInfo(data)
+    console.log('userProfInfoData: ', data)
   }
 
   const renderLandingPage = () => {
@@ -57,7 +58,7 @@ function App() {
     localStorage.setItem('current_user', current_user['username'])
     localStorage.setItem('current_user_id', current_user['id'])
     console.log('this is the current_user: ', current_user)
-    fetchUserProfileInfo()
+    fetchUserProfileInfo(current_user['id'])
 
   }
 
@@ -98,6 +99,7 @@ function App() {
   const renderProfile = () => {
     return (
       <Profile
+        fetchUserProfileInfo = {fetchUserProfileInfo}
         userProfileInfo = {userProfileInfo}
       />
     )
@@ -114,7 +116,8 @@ function App() {
 
         <Switch>
           <Route exact path = '/' render = {renderLandingPage} />
-          <Route exact path = '/profile/:username' render = {renderProfile} />
+          <Route exact path = '/profile' render = {renderProfile} />
+          <Route exact path = '/profile/:userId/edit' />
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
         </Switch>

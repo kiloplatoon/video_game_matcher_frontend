@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Login from '../Login/Login';
 import { Redirect } from 'react-router-dom';
 
 const LandingPage = (props) => {
-  console.log(props)
   return (
     <div className='container'>
       {
@@ -16,7 +15,7 @@ const LandingPage = (props) => {
           />
           </>
         :
-          <Redirect to = {`/profile/${localStorage.getItem('current_user')}`} />
+          <Redirect to = '/profile' />
       }
     </div>
   )

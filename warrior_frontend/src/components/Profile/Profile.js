@@ -1,9 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import './Profile.css';
 
 function Profile(props) {
+  const user = props.userProfileInfo.user
 
+  useEffect(()=> {
+    props.fetchUserProfileInfo()
+  },[])
+  console.log('this is a user: ', user)
   return (
     <div className='container'>
       {
@@ -13,12 +19,24 @@ function Profile(props) {
             
             <div className='profile-img'>
               <img src='https://via.placeholder.com/150' />
-              <h3> First Name</h3>
+              {
+                user !== undefined
+                ?
+                  <h3> {user['first_name']}</h3>
+                :
+                  null
+              }
             </div>
 
             <div className='profile-info'>
               <div>
-                <h1>Username</h1>
+              {
+                user !== undefined
+                ?
+                  <h3> {user['username']}</h3>
+                :
+                  null
+              }
                 <div>
                   <h4 className='info-inline'>Casual or Competitive: </h4>
                   <p className='info-inline'>{props.userProfileInfo.casual_competitive}</p>
@@ -34,6 +52,13 @@ function Profile(props) {
               </div>
 
               <div>
+                {
+                  user !== undefined
+                  ?
+                    <Link to = {`/profile/${user.id}/edit`}> <Button>Edit</Button></Link>
+                  :
+                    null
+                }
                 <button> Add Friend</button>
                 <button> Delete Friend</button>
                 <br />
