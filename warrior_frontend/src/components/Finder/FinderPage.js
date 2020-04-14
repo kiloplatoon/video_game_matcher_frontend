@@ -8,7 +8,11 @@ class FinderPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      profiles: []
+      profiles: [],
+      platform: "",
+      game: "",
+      difficulty: ""
+
     }
   }
 
@@ -22,15 +26,52 @@ class FinderPage extends Component {
       )
   }
 
+  platformRadioChangeHandler = (event) => {
+    this.setState({
+      platform: event.target.value
+    });
+  }
+
+  gameRadioChangeHandler = (event) => {
+    this.setState({
+      game: event.target.value
+    });
+  }
+
+  difficultyRadioChangeHandler = (event) => {
+    this.setState({
+      difficulty: event.target.value
+    });
+  }
+
   render() {
-    console.log('State:', this.state.profiles)
     return (
       <div>
-        <h1>Buddy Finder Page</h1>
+        <h3>Platform</h3>
+        <div onChange={this.platformRadioChangeHandler.bind(this)}>
+          <input type="radio" value="PC" name="platform" /> PC
+          <input type="radio" value="PS4" name="platform" /> PS4 
+          <input type="radio" value="Xbox One" name="platform" /> Xbox One 
+          <input type="radio" value="Xbox One" name="platform" /> Switch 
+
+        </div>
+        <h3>Game</h3>
+        <div onChange={this.gameRadioChangeHandler.bind(this)}>
+          <input type="radio" value="Smite" name="game" /> Smite 
+          <input type="radio" value="Overwatch" name="game" /> Overwatch 
+          <input type="radio" value="Call of Duty Warzone" name="game" /> Call of Duty Warzone
+          <input type="radio" value="Rocket League" name="game" /> Rocket League
+          <input type="radio" value="Fortnite" name="game" /> Fortnite
+        </div>
+        <h3>Casual or Competitive</h3>
+        <div onChange={this.difficultyRadioChangeHandler.bind(this)}>
+          <input type="radio" value="Casual" name="difficulty" /> Casual 
+          <input type="radio" value="Competitive" name="difficulty" /> Competitive 
+        </div>
         <br />
         <CardColumns>
           <CardDeck>
-            <FinderList profiles={this.state.profiles} />
+            <FinderList profiles={this.state.profiles} platform={this.state.platform} game={this.state.game} difficulty={this.state.difficulty}/>
           </CardDeck>
         </CardColumns>
       </div>
