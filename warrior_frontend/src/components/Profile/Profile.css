@@ -1,0 +1,26 @@
+.profile-parent {
+  width: 100%;
+  margin: auto;
+  padding: 1%;
+  margin-top: 2%;
+  border: 1px solid black;
+  display: flex;
+}
+
+.profile-img {
+  padding: 2%;
+
+  /* border: 1px solid purple; */
+}
+
+.profile-info {
+  padding: 2%;
+  width: 100%;
+  /* border: 1px solid green; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-inline {
+  display: inline-block;
+}
