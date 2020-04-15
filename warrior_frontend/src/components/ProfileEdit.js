@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
+import UserAPI from '../api/UserAPI';
 
 
 function ProfileEdit () {
@@ -8,38 +9,63 @@ function ProfileEdit () {
   const [gameState,setGameState] = useState('')
   const [platformState, setPlatformState] = useState('')
   const [casualorcompetitiveState, setCasualorCompetitiveState] = useState('')
+  const [currentUser, setCurrentUser] = useState({})
+  const [profileData, setProfileData] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(gameState.value)
-    console.log(platformState.value)
-    console.log(casualorcompetitiveState.value)
+
+    if (gameState.value == undefined)
+      console.log(true)
+    if (platformState.value == undefined)
+      console.log(true)
+    if (casualorcompetitiveState.value == undefined)
+      console.log(true)   
+
   }
 
+  const getCurrentUser = async () => {
+    let data = await UserAPI.fetchCurrentUser()
+    setCurrentUser(data)
+    getProfileData(data.id)
+  }
+
+  const getProfileData = async (userid) => {
+    let data = await UserAPI.fetchProfileDetails(userid)
+    setProfileData(data)
+  }
+
+
+  useEffect(()=>{
+    getCurrentUser()
+  },[])
+
+  console.log('profile edit: ', currentUser)
+  console.log('profile data: ', profileData)
   return (
     <div className='container'>
 
       <Form onSubmit = {handleSubmit}>
         <Form.Group controlId="formGridEmail">
           <Form.Label>Email</Form.Label>
-          <Form.Control name='email' type="email" placeholder="Enter email" />
+          <Form.Control name='email' type="email" value={currentUser.email} />
         </Form.Group>
 
 
         <Form.Group controlId="formGridFirstName">
           <Form.Label>FirstName</Form.Label>
-          <Form.Control name="first-name" type="text" placeholder="Enter First Name" />
+          <Form.Control name="first_name" type="text" value={currentUser.first_name} />
         </Form.Group>
 
 
         <Form.Group controlId="formGridLastName">
           <Form.Label>LastName</Form.Label>
-          <Form.Control name="last-name" type="text" placeholder="Enter Last Name" />
+          <Form.Control name="last_name" type="text" value={currentUser.last_name} />
         </Form.Group>
 
         <Form.Group controlId="formGridUserName">
           <Form.Label>UserName</Form.Label>
-          <Form.Control name="username" type='text' placeholder="Enter Username" />
+          <Form.Control name="username" type='text' value={currentUser.username} />
         </Form.Group>
 
         <Form.Group controlId="formGridGame">
