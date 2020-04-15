@@ -36,6 +36,7 @@ function ProfileNU(props) {
     form_data.append('status', 0)
     form_data.append('action_user', user_id)
     console.log(buddy_id)
+    console.log(localStorage.getItem("current_user"))
     const add_url = `http://127.0.0.1:8000/friendships/relationship/${user_id}/friend_request/${buddy_id}`
     let res = await fetch(add_url, {
       method : 'POST',
