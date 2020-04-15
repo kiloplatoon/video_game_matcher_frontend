@@ -60,7 +60,7 @@ function all_my_buddies () {
           <Link to = {`/profile/${buddy_id}`}> {value}</Link><br></br>
           {buddy_id}
           {delete_url}
-          <a href = {delete_url}><button>Delete</button></a>         
+          {/* <a href = {delete_url}><button>Delete</button></a>          */}
           </div>
         )
       })}

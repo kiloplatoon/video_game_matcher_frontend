@@ -95,7 +95,7 @@ function App() {
   }
 
   return (
-    <div >
+    <div>
       <Router>
         <Navigation 
           isAuthenticated = {isAuthenticated}

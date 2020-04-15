@@ -6,7 +6,10 @@ const Navigation = (props) => {
   console.log('logo: ', logo)
 
   const bglogo = () => {
-    return (<img src={logo} alt="Battle Buddies Logo" />)
+    return (
+    
+    <img src={logo} alt="Battle Buddies Logo"></img>
+    )
   }
 
   return (
