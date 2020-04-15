@@ -39,7 +39,7 @@ const LandingPage = (props) => {
         :
           userId
         ?
-          <Redirect to = {`/profile/${userId}`} />
+          <Redirect to = {`/profile/myprofile/${userId}`} />
         :
           null
       }
