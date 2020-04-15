@@ -1,5 +1,14 @@
 body {
-  background-color: #F3F4F7;
+  /* background-image: url('./images/bbbg.jpg'); */
+}
+
+#background-video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .App {

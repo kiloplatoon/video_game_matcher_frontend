@@ -4,12 +4,13 @@ import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import './ProfileNU.css';
-import profilepic from '../../images/profilepic.jpeg';
+import profilepic from '../../images/bbprofile.jpeg';
 import Post from '../Post/Post';
 
 function ProfileNU(props) {
   console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
+  const [addBtnClicked, setAddBtnClicked] = useState(false)
   const isLoggedInUser = false
 
   console.log('Profile User: ', user)
@@ -49,8 +50,6 @@ function ProfileNU(props) {
     localStorage.setItem('buddy_list', JSON.stringify(data))
     return data
   }
-
-  console.log('SUDASDUEARESHFUSEFSE: ', user.user)
 
   return (
     <div className='container profile'>
@@ -114,26 +113,22 @@ function ProfileNU(props) {
             <div className='profile-info'>
               {/* Place INSIDE HERE */}
               <div className='friends'>
-                <div className='friend-header'>
-                  <h2>Friends</h2>
-                </div>
                 <div className="friend-buttons">
                   {
-                    true // change to check friendship
+                    !addBtnClicked // change to check friendship
                     ?
-                    <Button onClick = {() => add_buddy(buddy_id)} >Add Buddy</Button>
+                    <Button  variant="secondary" 
+                      onClick = {
+                        (e) =>{
+                          setAddBtnClicked(!addBtnClicked)
+                        } 
+                      }>
+                        Add Buddy</Button>
                     // <Button onClick = { () => }> Add Buddy </Button>
                     :
-                  <Button> UnBuddy</Button>
-
+                    <p><b>Buddy Request Sent!</b></p>
                   }
                 </div>
-              </div>
-
-              <hr className = 'divider' />
-              
-              <div className='populate-friends'>
-                <h1>FRIENDS GO HERE</h1>
               </div>
 
             {/* END OF BRYANS FRIEND AREA. DO NOT CODE ABOVE THIS */}

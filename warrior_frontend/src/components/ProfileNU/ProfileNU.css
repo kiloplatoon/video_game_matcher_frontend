@@ -74,3 +74,8 @@
 .text_underline {
   font-size: large;
 }
+
+.profile {
+  background-color:white;
+  height: 100vh;
+}

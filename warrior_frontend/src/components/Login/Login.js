@@ -1,9 +1,11 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import './Login.css';
 
 const Login = (props) => {
   return(
-    <div>
+    <div className = 'login'>
       <Form onSubmit = {props.handleLogin}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -14,10 +16,15 @@ const Login = (props) => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" name='password' placeholder="Password" />
         </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
+        <div className='btn-parent'>
+          <Button variant="primary" type="submit">
+            Login
+          </Button>
+          <div className='btn-child'>
+            <p style={{marginRight:'25px', paddingTop: '15px'}}>New User?</p>
+            <Link to ='/registration'><Button>Sign Up</Button></Link>
+          </div>
+        </div>
       </Form>
     </div>
   )

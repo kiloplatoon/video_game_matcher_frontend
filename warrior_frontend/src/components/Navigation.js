@@ -38,10 +38,7 @@ const Navigation = (props) => {
               <Nav.Link onClick={props.handleLogout} href="/">Logout</Nav.Link>
             </>
           :
-            <>
-              <Nav.Link href="/">Login</Nav.Link>
-              <Nav.Link href="/registration">Sign Up</Nav.Link>
-            </>
+            null
         }
         </Nav>
       </Navbar>

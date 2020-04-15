@@ -30,12 +30,11 @@ const LandingPage = (props) => {
       {
         !(localStorage.getItem('isAuthenticated') == 'true')
         ?
-          <>
-          <h1>Login Page</h1>
+          <div className='container' style={{marginTop:'15%'}}>
           <Login 
             {...props}
           />
-          </>
+          </div>
         :
           userId
         ?

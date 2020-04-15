@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import UserAPI from '../../api/UserAPI';
 import './Profile.css';
-import profilepic from '../../images/profilepic.jpeg';
+import profilepic from '../../images/bbprofile.jpeg';
 import Post from '../Post/Post';
 
 function Profile(props) {
@@ -100,20 +100,11 @@ function Profile(props) {
             <div className='profile-info'>
               {/* Place INSIDE HERE */}
               <div className='friends'>
-                <div className='friend-header'>
-                  <h2>Friends</h2>
-                </div>
                 <div className="friend-buttons">
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/all_my_buddies`}> <Button>All My Buddies</Button></Link><br></br>
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/received_buddy_requests`}> <Button>Received Buddy Requests</Button></Link><br></br>
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/sent_buddy_requests`}> <Button>Sent Buddy Requests</Button></Link><br></br>
+                  <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/all_my_buddies`}> <Button variant="secondary" >All My Buddies</Button></Link><br></br>
+                  <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/received_buddy_requests`}> <Button variant="secondary">Received Buddy Requests</Button></Link><br></br>
+                  <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/sent_buddy_requests`}> <Button variant="secondary">Sent Buddy Requests</Button></Link><br></br>
                 </div>
-              </div>
-
-              <hr className = 'divider' />
-              
-              <div className='populate-friends'>
-              <h1>FRIENDS GO HERE {localStorage.getItem('current_user')}</h1>
               </div>
 
             {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
