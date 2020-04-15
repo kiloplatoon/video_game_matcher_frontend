@@ -4,8 +4,10 @@ import { Button } from 'react-bootstrap';
 import UserAPI from '../../api/UserAPI';
 import './Profile.css';
 import profilepic from '../../images/profilepic.jpeg';
+import Post from '../Post/Post';
 
-function Profile() {
+function Profile(props) {
+  console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
   const [currentUser, setCurrentUser] = useState([])
   
@@ -29,7 +31,6 @@ function Profile() {
     data = await res.json()
     // console.log('userProfInfoData: ', data)
     setUser(data)
-
   }
 
   useEffect(()=> {
@@ -113,7 +114,7 @@ function Profile() {
             {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
             <hr className = 'divider' />
             <div className='status'>
-                <h1>POSTS GOES HERE</h1>
+                <Post userId = {props.match.params.userId}/>
             </div>
           </div>
           </>

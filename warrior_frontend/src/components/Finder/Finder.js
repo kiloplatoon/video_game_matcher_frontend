@@ -7,7 +7,7 @@ function Finder() {
   return (
     <div>
       {
-        localStorage.getItem('isAuthenticated') == 'true'
+        localStorage.getItem('isAuthenticated') === 'true'
         ?
           <FinderPage />
         :

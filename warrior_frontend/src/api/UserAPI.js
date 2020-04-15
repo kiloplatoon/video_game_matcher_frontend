@@ -57,6 +57,41 @@ const fetchProfileDetails = async (userId) => {
   return data
 }
 
+const fetchUserStatus = async (userId) => {
+  let res = await fetch(`http://localhost:8000/status/${userId}/list`)
+  let data = await res.json()
+  return data
+
+}
+
+const createUserPost = async (userId, post) => {
+  let res = await fetch(`http://localhost:8000/status/${userId}/create/`, {
+    method : 'POST',
+    headers : {
+      'Accept' : 'application/json',
+      'content-type' : 'application/json',
+      'Authorization' : `token ${localStorage.getItem('token')}`
+    },
+    body : JSON.stringify(post)
+  })
+  let data = await res.json()
+  console.log('CREATED POST : ', data)
+}
+
+const deletePost = async (userId) => {
+  let res = await fetch(`http://localhost:8000/status/${userId}/delete/`, {
+    method : 'POST',
+    headers : {
+      'Accept' : 'application/json',
+      'content-type' : 'application/json',
+      'Authorization' : `token ${localStorage.getItem('token')}`
+    }
+  })
+  let data = await res.json()
+  console.log(data)
+
+}
+
 export default {
   fetchUserToken,
   createNewUser,
@@ -64,4 +99,7 @@ export default {
   linkUserToProfile,
   fetchCurrentUser,
   fetchProfileDetails,
+  fetchUserStatus,
+  createUserPost,
+  deletePost,
 }
