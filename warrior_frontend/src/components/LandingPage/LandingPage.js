@@ -16,7 +16,7 @@ const LandingPage = (props) => {
     }
   })
     let data = await res.json()
-    console.log('dadawdadwad: ', data)
+    console.log('data = : ', data)
     setUserId(data['id'])
 
   }

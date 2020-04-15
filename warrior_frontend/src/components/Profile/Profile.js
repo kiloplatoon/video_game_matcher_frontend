@@ -7,13 +7,16 @@ import profilepic from '../../images/profilepic.jpeg';
 import Post from '../Post/Post';
 
 function Profile(props) {
-  console.log('inside PROFILE: ', props.match.params.userId)
+  // console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
   const [currentUser, setCurrentUser] = useState([])
   const isLoggedInUser = true
   
-  console.log('Profile Current User: ', currentUser)
-  console.log('Profile User: ', user)
+  // console.log('Profile Current User: ', currentUser)
+  // console.log('Profile User: ', user)
+
+    console.log("current user = ", localStorage.getItem('current_user'))
+    console.log("id = ", localStorage.getItem('current_user_id'))
 
   const fetchCurrentUser = async () => {
     let res = await fetch('http://localhost:8000/auth/current_user/', {
@@ -25,12 +28,12 @@ function Profile(props) {
     }
   })
     let data = await res.json()
-    console.log('dadawdadwad: ', data)
+    // console.log('dadawdadwad: ', data)
     setCurrentUser(data)
 
     res = await fetch(`http://localhost:8000/profile/${data['id']}/details/`)
     data = await res.json()
-    console.log('userProfInfoData: ', data)
+    // console.log('userProfInfoData: ', data)
     setUser(data)
   }
 
@@ -54,6 +57,7 @@ function Profile(props) {
                   <div style={{textAlign: 'center'}}>
                     <br />
                     <h3> {`${user.user['first_name']} ${user.user['last_name']}`}</h3>
+                    <p><b>Username: </b> {user.user['username']}</p>
                   </div>
                   :
                   null
@@ -100,16 +104,16 @@ function Profile(props) {
                   <h2>Friends</h2>
                 </div>
                 <div className="friend-buttons">
-                  <Button> All Buddies </Button>
-                  <Button> Pending </Button>
-                  <Button> Sent </Button>
+                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/all_my_buddies`}> <Button>All My Buddies</Button></Link><br></br>
+                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/received_buddy_requests`}> <Button>Received Buddy Requests</Button></Link><br></br>
+                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/sent_buddy_requests`}> <Button>Sent Buddy Requests</Button></Link><br></br>
                 </div>
               </div>
 
               <hr className = 'divider' />
               
               <div className='populate-friends'>
-                <h1>FRIENDS GO HERE</h1>
+              <h1>FRIENDS GO HERE {localStorage.getItem('current_user')}</h1>
               </div>
 
             {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}

@@ -6,7 +6,10 @@ const Navigation = (props) => {
   console.log('logo: ', logo)
 
   const bglogo = () => {
-    return (<img src={logo} alt="Battle Buddies Logo" />)
+    return (
+    
+    <img src={logo} alt="Battle Buddies Logo"></img>
+    )
   }
 
   return (
@@ -29,7 +32,7 @@ const Navigation = (props) => {
           localStorage.getItem('isAuthenticated') == 'true'
           ?
             <>
-              <Nav.Link href="/profile">Profile</Nav.Link>
+              <Nav.Link href={`/profile/myprofile/${localStorage.getItem('current_user_id')}`} >Profile</Nav.Link>
               <Nav.Link href="/finder">Buddy Finder</Nav.Link>
               <Nav.Link href="/chat">Chat</Nav.Link>
               <Nav.Link onClick={props.handleLogout} href="/">Logout</Nav.Link>

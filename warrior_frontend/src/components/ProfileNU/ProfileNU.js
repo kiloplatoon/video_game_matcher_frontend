@@ -1,3 +1,5 @@
+// for viewing another person's profile
+
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
@@ -9,7 +11,7 @@ function ProfileNU(props) {
   console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
   const isLoggedInUser = false
-  
+
   console.log('Profile User: ', user)
 
   const fetchCurrentUser = async () => {
@@ -22,6 +24,32 @@ function ProfileNU(props) {
   useEffect(()=> {
     fetchCurrentUser()
   },[])
+
+  const user_id = parseInt(localStorage.getItem("current_user_id"))
+  const buddy_id = props.match.params.userId
+  console.log("buddy id = ", buddy_id)
+  const add_buddy = async (buddy_id) => {
+    const form_data = new FormData()
+    form_data.append('id', user_id)
+    form_data.append('user_one', user_id)
+    form_data.append('user_two', buddy_id)
+    form_data.append('status', 0)
+    form_data.append('action_user', user_id)
+    console.log(buddy_id)
+    console.log(localStorage.getItem("current_user"))
+    const add_url = `http://127.0.0.1:8000/friendships/relationship/${user_id}/friend_request/${buddy_id}`
+    let res = await fetch(add_url, {
+      method : 'POST',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       },
+       body :  form_data
+    })
+    let data = await res.json()
+    localStorage.setItem('buddy_list', JSON.stringify(data))
+    return data
+  }
 
   console.log('SUDASDUEARESHFUSEFSE: ', user.user)
 
@@ -41,6 +69,7 @@ function ProfileNU(props) {
                   <div style={{textAlign: 'center'}}>
                     <br />
                     <h3> {`${user.user['first_name']} ${user.user['last_name']}`}</h3>
+                    <p><b>Username: </b> {user.user['username']}</p>
                   </div>
                   :
                   null
@@ -90,9 +119,15 @@ function ProfileNU(props) {
                   <h2>Friends</h2>
                 </div>
                 <div className="friend-buttons">
-                  <Button> All Buddies </Button>
-                  <Button> Pending </Button>
-                  <Button> Sent </Button>
+                  {
+                    true // change to check friendship
+                    ?
+                    <Button onClick = {() => add_buddy(buddy_id)} >Add Buddy</Button>
+                    // <Button onClick = { () => }> Add Buddy </Button>
+                    :
+                  <Button> UnBuddy</Button>
+
+                  }
                 </div>
               </div>
 
@@ -102,7 +137,7 @@ function ProfileNU(props) {
                 <h1>FRIENDS GO HERE</h1>
               </div>
 
-            {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
+            {/* END OF BRYANS FRIEND AREA. DO NOT CODE ABOVE THIS */}
             <hr className = 'divider' />
             <div className='status'>
                 <Post 
