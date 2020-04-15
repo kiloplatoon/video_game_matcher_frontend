@@ -47,33 +47,36 @@ class FinderPage extends Component {
   render() {
     return (
       <div>
-        <h3>Platform</h3>
-        <div onChange={this.platformRadioChangeHandler.bind(this)}>
-          <input type="radio" value="PC" name="platform" /> PC
-          <input type="radio" value="PS4" name="platform" /> PS4 
-          <input type="radio" value="Xbox One" name="platform" /> Xbox One 
-          <input type="radio" value="Xbox One" name="platform" /> Switch 
-
-        </div>
-        <h3>Game</h3>
-        <div onChange={this.gameRadioChangeHandler.bind(this)}>
-          <input type="radio" value="Smite" name="game" /> Smite 
-          <input type="radio" value="Overwatch" name="game" /> Overwatch 
-          <input type="radio" value="Call of Duty Warzone" name="game" /> Call of Duty Warzone
-          <input type="radio" value="Rocket League" name="game" /> Rocket League
-          <input type="radio" value="Fortnite" name="game" /> Fortnite
-        </div>
-        <h3>Casual or Competitive</h3>
-        <div onChange={this.difficultyRadioChangeHandler.bind(this)}>
-          <input type="radio" value="Casual" name="difficulty" /> Casual 
-          <input type="radio" value="Competitive" name="difficulty" /> Competitive 
+        <div className="filter">
+          <div onChange={this.platformRadioChangeHandler.bind(this)}>
+            <h3>Platform</h3>
+            <input type="radio" value="PC" name="platform" /> PC
+            <input type="radio" value="PS4" name="platform" /> PS4
+            <input type="radio" value="Xbox One" name="platform" /> Xbox One
+            <input type="radio" value="Xbox One" name="platform" /> Switch
+          </div>
+          <div onChange={this.gameRadioChangeHandler.bind(this)}>
+            <h3>Game</h3>
+            <input type="radio" value="Smite" name="game" /> Smite
+            <input type="radio" value="Overwatch" name="game" /> Overwatch
+            <input type="radio" value="Call of Duty Warzone" name="game" /> Call of Duty Warzone
+            <input type="radio" value="Rocket League" name="game" /> Rocket League
+            <input type="radio" value="Fortnite" name="game" /> Fortnite
+          </div>  
+          <div onChange={this.difficultyRadioChangeHandler.bind(this)}>
+            <h3>Casual or Competitive</h3>
+            <input type="radio" value="Casual" name="difficulty" /> Casual
+            <input type="radio" value="Competitive" name="difficulty" /> Competitive
+          </div>
         </div>
         <br />
+        <div className="cards">
         <CardColumns>
           <CardDeck>
-            <FinderList profiles={this.state.profiles} platform={this.state.platform} game={this.state.game} difficulty={this.state.difficulty}/>
+            <FinderList profiles={this.state.profiles} platform={this.state.platform} game={this.state.game} difficulty={this.state.difficulty} />
           </CardDeck>
         </CardColumns>
+        </div>
       </div>
     )
   }

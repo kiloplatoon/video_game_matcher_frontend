@@ -6,6 +6,7 @@ import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
 import ProfileEdit from './components/ProfileEdit';
+import Messages from './components/Chat/Messages'
 import Navigation from './components/Navigation';
 import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import Finder from './components/Finder/Finder'
@@ -104,7 +105,6 @@ function App() {
 
         <Switch>
           <Route exact path = '/' render = {renderLandingPage} />
-
           <Route exact path = '/profile/:userId' component = {Profile} />
           <Route exact path = '/profile/:userId/buddies' component = {FriendshipsPage} />
           <Route exact path = '/profile/:userId/buddies/all_my_buddies' component = {all_my_buddies} />
@@ -112,9 +112,6 @@ function App() {
           <Route exact path = '/profile/:userId/buddies/received_buddy_requests' component = {received_buddy_requests} />
           <Route exact path = '/profile/:userId/buddies/sent_buddy_requests' component = {sent_buddy_requests} />
           <Route exact path = '/profile/:userId/edit' component = {ProfileEdit} />
-
-          <Route exact path = '/profile/:userId/edit' />
-
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
           <Route exact path = '/finder' component = {Finder} />
