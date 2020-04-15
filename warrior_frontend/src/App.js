@@ -7,9 +7,14 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
 import ProfileEdit from './components/ProfileEdit';
 import Navigation from './components/Navigation';
-import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import Finder from './components/Finder/Finder'
+import Messages from './components/Chat/Messages'
 
+import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
+import all_my_buddies from './components/FriendshipsPage/all_my_buddies'
+import received_buddy_requests from './components/FriendshipsPage/received_buddy_requests'
+import sent_buddy_requests from './components/FriendshipsPage/sent_buddy_requests'
+import search_results from './components/FriendshipsPage/search_results'
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -40,7 +45,7 @@ function App() {
       setIsAuthenticated(true)
     }
 
-    let res = await fetch('http://localhost:8000/auth/current_user/', {
+    let res = await fetch('http://localhost:8000/auth/current_user', {
       method : 'GET',
       headers : {
         'Accept' : 'application/json',
@@ -100,7 +105,11 @@ function App() {
         <Switch>
           <Route exact path = '/' render = {renderLandingPage} />
           <Route exact path = '/profile/:userId' component = {Profile} />
-          <Route exact path = '/profile/:userId/friendships' component = {FriendshipsPage} />
+          <Route exact path = '/profile/:userId/buddies' component = {FriendshipsPage} />
+          <Route exact path = '/profile/:userId/buddies/all_my_buddies' component = {all_my_buddies} />
+          <Route exact path = '/profile/:userId/buddies/search_results' component = {search_results} />
+          <Route exact path = '/profile/:userId/buddies/received_buddy_requests' component = {received_buddy_requests} />
+          <Route exact path = '/profile/:userId/buddies/sent_buddy_requests' component = {sent_buddy_requests} />
           <Route exact path = '/profile/:userId/edit' component = {ProfileEdit} />
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />

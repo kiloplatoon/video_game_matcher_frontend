@@ -7,8 +7,8 @@ function Profile() {
   const [user, setUser] = useState([])
   const [currentUser, setCurrentUser] = useState([])
   
-  console.log('Profile Current User: ', currentUser)
-  console.log('Profile User: ', user)
+  // console.log('Profile Current User: ', currentUser)
+  // console.log('Profile User: ', user)
 
   const fetchCurrentUser = async () => {
     let res = await fetch('http://localhost:8000/auth/current_user/', {
@@ -20,12 +20,12 @@ function Profile() {
     }
   })
     let data = await res.json()
-    console.log('dadawdadwad: ', data)
+    // console.log('dadawdadwad: ', data)
     setCurrentUser(data)
 
     res = await fetch(`http://localhost:8000/profile/${data['id']}/details/`)
     data = await res.json()
-    console.log('userProfInfoData: ', data)
+    // console.log('userProfInfoData: ', data)
     setUser(data)
 
   }
@@ -82,6 +82,8 @@ function Profile() {
                 <button> Delete Friend</button>
                 <br />
                 <button> Chat</button>
+                <Link to = {`/profile/${user.id}/buddies`}> <Button>Buddies</Button></Link>
+
               </div>
             </div>
 
