@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap'
+// import MessageButton from '../Chat/MessageButton'
 
 const FinderList = ({ profiles, platform, game, difficulty }) => {
   const renderProfilesList = () => {
@@ -21,7 +22,8 @@ const FinderList = ({ profiles, platform, game, difficulty }) => {
             <small className="text-muted">Game: {profile.game} - </small>
             <small className="text-muted">{profile.casual_competitive}</small>
           </Card.Footer>
-          <Button variant="primary">Visit Profile</Button>
+          <Button variant="primary" >Visit Profile</Button>
+          {/* <MessageButton variant="primary" target={profile.username} >Send Message</MessageButton> */}
         </Card>
       )
       }

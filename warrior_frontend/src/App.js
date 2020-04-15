@@ -10,6 +10,7 @@ import Messages from './components/Chat/Messages'
 import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import Finder from './components/Finder/Finder'
 
+
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
