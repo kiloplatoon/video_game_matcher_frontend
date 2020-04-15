@@ -103,9 +103,7 @@ function App() {
           <Route exact path = '/profile/:userId' component = {Profile} />
           <Route exact path = '/profile/:userId/friendships' component = {FriendshipsPage} />
           <Route exact path = '/profile/:userId/edit' component = {ProfileEdit} />
-
           <Route exact path = '/profile/:userId/edit' />
-
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
           <Route exact path = '/finder' component = {Finder} />
