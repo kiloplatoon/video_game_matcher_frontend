@@ -49,7 +49,7 @@ function all_my_buddies () {
     return data
   }
 
-  if (list['list'] != null && list['list'].length > 0) {
+  if (list != null && list['list'].length > 0) {
     for (var i = 0; i < list['list'].length; i++){
       buddy_list.push(list['list'][i]['username'])
       temp = list['list'][i]['username']

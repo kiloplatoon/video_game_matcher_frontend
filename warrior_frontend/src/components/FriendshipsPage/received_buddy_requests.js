@@ -48,7 +48,7 @@ function received_buddy_requests () {
     return data
   }
 
-  if (list['list'] != null && list['list'].length > 0) {
+  if (list != null && list['list'].length > 0) {
     for (var i = 0; i < list['list'].length; i++){
       received_buddy_requests.push(list['list'][i]['username'])
       received_buddy_id_requests.push(list['list'][i]['id'])

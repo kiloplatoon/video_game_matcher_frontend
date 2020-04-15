@@ -32,7 +32,7 @@ function sent_buddy_requests () {
   let sent_buddy_id_requests = []
 
   // console.log("WTF = ", list['list'])
-  if (list['list'] != null && list['list'].length > 0) {
+  if (list != null && list['list'].length > 0) {
     for (var i = 0; i < list['list'].length; i++){
       sent_buddy_requests.push(list['list'][i]['username'])
       sent_buddy_id_requests.push(list['list'][i]['id'])
