@@ -7,12 +7,15 @@ import profilepic from '../../images/profilepic.jpeg';
 import Post from '../Post/Post';
 
 function Profile(props) {
-  console.log('inside PROFILE: ', props.match.params.userId)
+  // console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
   const [currentUser, setCurrentUser] = useState([])
   
   // console.log('Profile Current User: ', currentUser)
   // console.log('Profile User: ', user)
+
+    console.log("current user = ", localStorage.getItem('current_user'))
+    console.log("id = ", localStorage.getItem('current_user_id'))
 
   const fetchCurrentUser = async () => {
     let res = await fetch('http://localhost:8000/auth/current_user/', {

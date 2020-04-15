@@ -7,6 +7,10 @@ function all_my_buddies () {
 
   const username = localStorage.getItem("current_user")
   const user_id = parseInt(localStorage.getItem("current_user_id"))
+
+  console.log("user id = ", user_id)
+  console.log("username = ", username)
+
   const url = 'http://localhost:8000/friendships/' + user_id + '/friends_list'
 
   const get_all_my_buddies = async () => {
