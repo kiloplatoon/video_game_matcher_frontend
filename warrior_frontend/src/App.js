@@ -11,7 +11,6 @@ import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import Finder from './components/Finder/Finder'
 import Messages from './components/Chat/Messages'
 
-import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import all_my_buddies from './components/FriendshipsPage/all_my_buddies'
 import received_buddy_requests from './components/FriendshipsPage/received_buddy_requests'
 import sent_buddy_requests from './components/FriendshipsPage/sent_buddy_requests'
