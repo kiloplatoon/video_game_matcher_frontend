@@ -1,0 +1,25 @@
+.finder {
+  margin-top: 4%;
+  padding-top: 1%;
+  padding-bottom: .1%;
+}
+
+.input {
+  margin-left: 5%;
+}
+
+.form {
+  margin-bottom: 3%;
+}
+
+.filter {
+  padding: 1%;
+}
+
+.divider {
+  border: 2px solid black
+}
+
+.cards {
+  display:flex;
+}
