@@ -1,0 +1,17 @@
+.footer {
+  display:flex;
+  justify-content: space-between;
+}
+
+
+
+.PostCard {
+  padding: 0%;
+}
+
+.postText {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 20px;
+  margin-bottom: 5%;
+}

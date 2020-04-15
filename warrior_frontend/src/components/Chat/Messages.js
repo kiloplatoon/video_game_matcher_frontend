@@ -3,6 +3,7 @@ import { Chat, Channel, ChannelList, Window } from 'stream-chat-react';
 import { ChannelHeader, MessageList } from 'stream-chat-react';
 import { MessageInput, Thread } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
+import { Button, ButtonGroup } from 'react-bootstrap'
 
 import 'stream-chat-react/dist/css/index.css';
 
@@ -11,64 +12,75 @@ const userID = localStorage.getItem("current_user")
 
 
 // custom channel preview component
-class MyChannelPreview extends React.Component {
-  render() {
-    const { setActiveChannel, channel } = this.props;
-    const unreadCount = channel.countUnread();
+// class MyChannelPreview extends React.Component {
+//   render() {
+//     const { setActiveChannel, channel } = this.props;
+//     console.log(this.props)
+//     const unreadCount = channel.countUnread();
 
-    return (
-      <div className="channel_preview">
-        <a href="#" onClick={(e) => setActiveChannel(channel, e)}>
-          {channel.data.name}
-        </a>
+//     return (
+//       <div className="channel_preview">
+//         <ButtonGroup>
+//         <Button variant="outline-primary"  onClick={(e) => setActiveChannel(channel, e)} block>
+//           {/* {console.log(channel.data)} */}
+//           {/* {console.log(channel)} */}
+//           {channel.data.id}
+//           <br/>
+//         <span>
+//           Unread messages: {unreadCount}
+//         </span>
+//         </Button>
+//         </ButtonGroup>
+//       </div>
+//     );
+//   }
+// }
 
-        <span>
-          Unread messages: {unreadCount}
-        </span>
-      </div>
-    );
-  }
-}
 
 
-
-// const channel = chatClient.channel('messaging', 'Test', {
-//   members: ['danieltolczyk', 'fake'],
-// })
 
 
 function Messages() {
 
   if (userID) {
+    
     const chatClient = new StreamChat('wsmv73rq7u6d');
     chatClient.setUser(
       {
         id: userID,
         name: userID,
-        image: 'https://getstream.io/random_svg/'
+        image: ''
       },
       localStorage.getItem("stream_token"),
     );
+    const channel = chatClient.channel('messaging', 'Testing', {
+      members: ['danieltolczyk', 'fake'],
+      name: "This is more testing"
+    })
     const filters = { type: 'messaging', members: { $in: [userID] } };
     const sort = { last_message_at: -1 };
     const channels = chatClient.queryChannels(filters, sort);
-
+    console.log(channel)
     return (
-      <Chat client={chatClient} theme={'messaging light'}>
-        <ChannelList
-          filters={filters}
-          sort={sort}
-          Preview={MyChannelPreview}
-        />
-        <Channel>
-          <Window>
-            <ChannelHeader />
-            <MessageList />
-            <MessageInput />
-          </Window>
-          <Thread />
-        </Channel>
-      </Chat>
+      <div className='container'>
+
+        <Chat client={chatClient} theme={'messaging light'}>
+          <ChannelList
+          
+          // filters={filters}
+          // sort={sort}
+          // Preview={MyChannelPreview}
+          />
+          <Channel >
+            <Window>
+              <ChannelHeader />
+              <MessageList />
+              <MessageInput />
+            </Window>
+            <Thread />
+          </Channel>
+        </Chat>
+      </div>
     )
   }
   return (

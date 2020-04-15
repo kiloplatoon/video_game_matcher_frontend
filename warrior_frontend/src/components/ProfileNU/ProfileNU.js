@@ -1,45 +1,57 @@
+// for viewing another person's profile
+
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import UserAPI from '../../api/UserAPI';
-import './Profile.css';
+import './ProfileNU.css';
 import profilepic from '../../images/profilepic.jpeg';
 import Post from '../Post/Post';
 
-function Profile(props) {
-  // console.log('inside PROFILE: ', props.match.params.userId)
+function ProfileNU(props) {
+  console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
-  const [currentUser, setCurrentUser] = useState([])
-  const isLoggedInUser = true
-  
-  // console.log('Profile Current User: ', currentUser)
-  // console.log('Profile User: ', user)
+  const isLoggedInUser = false
 
-    console.log("current user = ", localStorage.getItem('current_user'))
-    console.log("id = ", localStorage.getItem('current_user_id'))
+  console.log('Profile User: ', user)
 
   const fetchCurrentUser = async () => {
-    let res = await fetch('http://localhost:8000/auth/current_user/', {
-    method : 'GET',
-    headers : {
-      'Accept' : 'application/json',
-      'content-type' : 'application/json',
-      'Authorization' : `token ${localStorage.getItem('token')}`
-    }
-  })
+    let res = await fetch(`http://localhost:8000/profile/${props.match.params.userId}/details/`)
     let data = await res.json()
-    // console.log('dadawdadwad: ', data)
-    setCurrentUser(data)
-
-    res = await fetch(`http://localhost:8000/profile/${data['id']}/details/`)
-    data = await res.json()
-    // console.log('userProfInfoData: ', data)
+    console.log('userProfInfoData: ', data)
     setUser(data)
   }
 
   useEffect(()=> {
     fetchCurrentUser()
   },[])
+
+  const user_id = parseInt(localStorage.getItem("current_user_id"))
+  const buddy_id = props.match.params.userId
+  console.log("buddy id = ", buddy_id)
+  const add_buddy = async (buddy_id) => {
+    const form_data = new FormData()
+    form_data.append('id', user_id)
+    form_data.append('user_one', user_id)
+    form_data.append('user_two', buddy_id)
+    form_data.append('status', 0)
+    form_data.append('action_user', user_id)
+    console.log(buddy_id)
+    console.log(localStorage.getItem("current_user"))
+    const add_url = `http://127.0.0.1:8000/friendships/relationship/${user_id}/friend_request/${buddy_id}`
+    let res = await fetch(add_url, {
+      method : 'POST',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       },
+       body :  form_data
+    })
+    let data = await res.json()
+    localStorage.setItem('buddy_list', JSON.stringify(data))
+    return data
+  }
+
+  console.log('SUDASDUEARESHFUSEFSE: ', user.user)
 
   return (
     <div className='container profile'>
@@ -82,13 +94,16 @@ function Profile(props) {
                 <hr className = 'divider' />
                 <br />
                 <p className="text_underline"><b>Contact</b></p>
-                <p><b>Email:</b> {currentUser.email}</p>
+                {
+                  user.user
+                  ?
+                  <p><b>Email:</b> {user.user.email}</p>
+                  :
+                  <p><b>Email:</b> </p>
+                }
 
                 <br />
                 <hr className = 'divider' />
-                <br />
-                <p className="text_underline"><b>Settings</b></p>
-                <Link to = {`/profile/${user.id}/edit`}>Edit Gaming Preferences</Link>
 
               </div>
             {/* END PROFILE IMG */}
@@ -104,19 +119,25 @@ function Profile(props) {
                   <h2>Friends</h2>
                 </div>
                 <div className="friend-buttons">
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/all_my_buddies`}> <Button>All My Buddies</Button></Link><br></br>
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/received_buddy_requests`}> <Button>Received Buddy Requests</Button></Link><br></br>
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/sent_buddy_requests`}> <Button>Sent Buddy Requests</Button></Link><br></br>
+                  {
+                    true // change to check friendship
+                    ?
+                    <Button onClick = {() => add_buddy(buddy_id)} >Add Buddy</Button>
+                    // <Button onClick = { () => }> Add Buddy </Button>
+                    :
+                  <Button> UnBuddy</Button>
+
+                  }
                 </div>
               </div>
 
               <hr className = 'divider' />
               
               <div className='populate-friends'>
-              <h1>FRIENDS GO HERE {localStorage.getItem('current_user')}</h1>
+                <h1>FRIENDS GO HERE</h1>
               </div>
 
-            {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
+            {/* END OF BRYANS FRIEND AREA. DO NOT CODE ABOVE THIS */}
             <hr className = 'divider' />
             <div className='status'>
                 <Post 
@@ -134,4 +155,4 @@ function Profile(props) {
   )
 }
 
-export default Profile
+export default ProfileNU

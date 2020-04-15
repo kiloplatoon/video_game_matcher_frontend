@@ -1,46 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import UserAPI from '../../api/UserAPI';
-import './Profile.css';
-import profilepic from '../../images/profilepic.jpeg';
-import Post from '../Post/Post';
+import React from 'react'
 
-function Profile(props) {
-  // console.log('inside PROFILE: ', props.match.params.userId)
-  const [user, setUser] = useState([])
-  const [currentUser, setCurrentUser] = useState([])
-  const isLoggedInUser = true
-  
-  // console.log('Profile Current User: ', currentUser)
-  // console.log('Profile User: ', user)
-
-    console.log("current user = ", localStorage.getItem('current_user'))
-    console.log("id = ", localStorage.getItem('current_user_id'))
-
-  const fetchCurrentUser = async () => {
-    let res = await fetch('http://localhost:8000/auth/current_user/', {
-    method : 'GET',
-    headers : {
-      'Accept' : 'application/json',
-      'content-type' : 'application/json',
-      'Authorization' : `token ${localStorage.getItem('token')}`
-    }
-  })
-    let data = await res.json()
-    // console.log('dadawdadwad: ', data)
-    setCurrentUser(data)
-
-    res = await fetch(`http://localhost:8000/profile/${data['id']}/details/`)
-    data = await res.json()
-    // console.log('userProfInfoData: ', data)
-    setUser(data)
-  }
-
-  useEffect(()=> {
-    fetchCurrentUser()
-  },[])
-
+export default function UserProfile() {
   return (
     <div className='container profile'>
       {
@@ -57,7 +17,6 @@ function Profile(props) {
                   <div style={{textAlign: 'center'}}>
                     <br />
                     <h3> {`${user.user['first_name']} ${user.user['last_name']}`}</h3>
-                    <p><b>Username: </b> {user.user['username']}</p>
                   </div>
                   :
                   null
@@ -104,25 +63,22 @@ function Profile(props) {
                   <h2>Friends</h2>
                 </div>
                 <div className="friend-buttons">
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/all_my_buddies`}> <Button>All My Buddies</Button></Link><br></br>
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/received_buddy_requests`}> <Button>Received Buddy Requests</Button></Link><br></br>
-                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/sent_buddy_requests`}> <Button>Sent Buddy Requests</Button></Link><br></br>
+                  <Button> All Buddies </Button>
+                  <Button> Pending </Button>
+                  <Button> Sent </Button>
                 </div>
               </div>
 
               <hr className = 'divider' />
               
               <div className='populate-friends'>
-              <h1>FRIENDS GO HERE {localStorage.getItem('current_user')}</h1>
+                <h1>FRIENDS GO HERE</h1>
               </div>
 
             {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
             <hr className = 'divider' />
             <div className='status'>
-                <Post 
-                  userId = {props.match.params.userId}
-                  isLoggedInUser = {isLoggedInUser}
-                />
+                <Post userId = {props.match.params.userId}/>
             </div>
           </div>
           </>
@@ -133,5 +89,3 @@ function Profile(props) {
     </div>
   )
 }
-
-export default Profile

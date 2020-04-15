@@ -5,22 +5,20 @@ import Registration from './components/Registration';
 import UserAPI from './api/UserAPI';
 import LandingPage from './components/LandingPage/LandingPage';
 import Profile from './components/Profile/Profile';
-import Navigation from './components/Navigation';
+import ProfileEdit from './components/ProfileEdit';
 import Messages from './components/Chat/Messages'
-import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
-import Finder from './components/Finder/Finder'
+import Navigation from './components/Navigation';
+import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage';
+import Finder from './components/Finder/Finder';
+import ProfileNU from './components/ProfileNU/ProfileNU';
 
+import all_my_buddies from './components/FriendshipsPage/all_my_buddies'
+import received_buddy_requests from './components/FriendshipsPage/received_buddy_requests'
+import sent_buddy_requests from './components/FriendshipsPage/sent_buddy_requests'
+import search_results from './components/FriendshipsPage/search_results'
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [userProfileInfo, setUserProfileInfo] = useState([])
-
-  const fetchUserProfileInfo = async (userId) => {
-    let res = await fetch(`http://localhost:8000/profile/${userId}/details/`)
-    let data = await res.json()
-    setUserProfileInfo(data)
-    console.log('userProfInfoData: ', data)
-  }
 
   const renderLandingPage = () => {
     return (
@@ -48,7 +46,7 @@ function App() {
       setIsAuthenticated(true)
     }
 
-    let res = await fetch('http://localhost:8000/auth/current_user/', {
+    let res = await fetch('http://localhost:8000/auth/current_user', {
       method : 'GET',
       headers : {
         'Accept' : 'application/json',
@@ -60,7 +58,6 @@ function App() {
     localStorage.setItem('current_user', current_user['username'])
     localStorage.setItem('current_user_id', current_user['id'])
     console.log('this is the current_user: ', current_user)
-    fetchUserProfileInfo(current_user['id'])
 
   }
 
@@ -98,18 +95,8 @@ function App() {
     setIsAuthenticated(false)
   }
 
-  const renderProfile = () => {
-    return (
-      <Profile
-        fetchUserProfileInfo = {fetchUserProfileInfo}
-        userProfileInfo = {userProfileInfo}
-      />
-    )
-  }
-
-
   return (
-    <div >
+    <div>
       <Router>
         <Navigation 
           isAuthenticated = {isAuthenticated}
@@ -118,8 +105,12 @@ function App() {
 
         <Switch>
           <Route exact path = '/' render = {renderLandingPage} />
-          <Route exact path = '/profile' render = {renderProfile} />
-          <Route exact path = '/profile/:userId/edit' />
+          <Route exact path = '/profile/myprofile/:userId' component = {Profile} />
+          <Route exact path = '/profile/:userId' component = {ProfileNU} />
+          <Route exact path = '/profile/myprofile/:userId/all_my_buddies' component = {all_my_buddies} />
+          <Route exact path = '/profile/myprofile/:userId/received_buddy_requests' component = {received_buddy_requests} />
+          <Route exact path = '/profile/myprofile/:userId/sent_buddy_requests' component = {sent_buddy_requests} />
+          <Route exact path = '/profile/:userId/edit' component = {ProfileEdit} />
           <Route exact path = '/registration' render = {renderRegistration} />
           <Route exact path = '/chat' component = {Messages} isAuthenticated = {isAuthenticated} />
           <Route exact path = '/finder' component = {Finder} />

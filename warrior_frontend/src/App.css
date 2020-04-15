@@ -1,3 +1,7 @@
+body {
+  background-color: #F3F4F7;
+}
+
 .App {
   text-align: center;
 }
@@ -36,3 +40,15 @@
     transform: rotate(360deg);
   }
 }
+
+
+.filter {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+

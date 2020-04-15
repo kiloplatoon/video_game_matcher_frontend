@@ -19,9 +19,8 @@
 }
 
 .profile-info {
-  /* background-color: white; */
   margin-top:2%;
-  height: vh;
+  height: 6vh;
   width: 100%;
   /* border: 1px solid green; */
 }
