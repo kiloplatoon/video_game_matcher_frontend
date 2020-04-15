@@ -53,7 +53,7 @@ class FinderPage extends Component {
             <input type="radio" value="PC" name="platform" /> PC
             <input type="radio" value="PS4" name="platform" /> PS4
             <input type="radio" value="Xbox One" name="platform" /> Xbox One
-            <input type="radio" value="Xbox One" name="platform" /> Switch
+            <input type="radio" value="Switch" name="platform" /> Switch
           </div>
           <div onChange={this.gameRadioChangeHandler.bind(this)}>
             <h3>Game</h3>

@@ -1,45 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import UserAPI from '../../api/UserAPI';
-import './Profile.css';
+import './ProfileNU.css';
 import profilepic from '../../images/profilepic.jpeg';
 import Post from '../Post/Post';
 
-function Profile(props) {
-  // console.log('inside PROFILE: ', props.match.params.userId)
+function ProfileNU(props) {
+  console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
-  const [currentUser, setCurrentUser] = useState([])
-  const isLoggedInUser = true
+  const isLoggedInUser = false
   
-  // console.log('Profile Current User: ', currentUser)
-  // console.log('Profile User: ', user)
-
-    console.log("current user = ", localStorage.getItem('current_user'))
-    console.log("id = ", localStorage.getItem('current_user_id'))
+  console.log('Profile User: ', user)
 
   const fetchCurrentUser = async () => {
-    let res = await fetch('http://localhost:8000/auth/current_user/', {
-    method : 'GET',
-    headers : {
-      'Accept' : 'application/json',
-      'content-type' : 'application/json',
-      'Authorization' : `token ${localStorage.getItem('token')}`
-    }
-  })
+    let res = await fetch(`http://localhost:8000/profile/${props.match.params.userId}/details/`)
     let data = await res.json()
-    // console.log('dadawdadwad: ', data)
-    setCurrentUser(data)
-
-    res = await fetch(`http://localhost:8000/profile/${data['id']}/details/`)
-    data = await res.json()
-    // console.log('userProfInfoData: ', data)
+    console.log('userProfInfoData: ', data)
     setUser(data)
   }
 
   useEffect(()=> {
     fetchCurrentUser()
   },[])
+
+  console.log('SUDASDUEARESHFUSEFSE: ', user.user)
 
   return (
     <div className='container profile'>
@@ -81,13 +65,16 @@ function Profile(props) {
                 <hr className = 'divider' />
                 <br />
                 <p className="text_underline"><b>Contact</b></p>
-                <p><b>Email:</b> {currentUser.email}</p>
+                {
+                  user.user
+                  ?
+                  <p><b>Email:</b> {user.user.email}</p>
+                  :
+                  <p><b>Email:</b> </p>
+                }
 
                 <br />
                 <hr className = 'divider' />
-                <br />
-                <p className="text_underline"><b>Settings</b></p>
-                <Link to = {`/profile/${user.id}/edit`}>Edit Gaming Preferences</Link>
 
               </div>
             {/* END PROFILE IMG */}
@@ -133,4 +120,4 @@ function Profile(props) {
   )
 }
 
-export default Profile
+export default ProfileNU
