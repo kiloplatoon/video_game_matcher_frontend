@@ -64,7 +64,7 @@ function all_my_buddies () {
     <ul>
       {
         buddy_list.map((value, index) => {
-        let buddy_id = list['list'][index]['id'] 
+        let buddy_id = list['list'][index]['id']
         console.log(buddy_list)
         const delete_url = 'http://127.0.0.1:8000/friendships/' + user_id + '/delete_friend/' + buddy_id
         return (

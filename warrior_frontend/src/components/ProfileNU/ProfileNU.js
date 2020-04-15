@@ -11,7 +11,7 @@ function ProfileNU(props) {
   console.log('inside PROFILE: ', props.match.params.userId)
   const [user, setUser] = useState([])
   const isLoggedInUser = false
-  
+
   console.log('Profile User: ', user)
 
   const fetchCurrentUser = async () => {
@@ -24,6 +24,31 @@ function ProfileNU(props) {
   useEffect(()=> {
     fetchCurrentUser()
   },[])
+
+  const user_id = parseInt(localStorage.getItem("current_user_id"))
+  const buddy_id = props.match.params.userId
+  console.log("buddy id = ", buddy_id)
+  const add_buddy = async (buddy_id) => {
+    const form_data = new FormData()
+    form_data.append('id', user_id)
+    form_data.append('user_one', user_id)
+    form_data.append('user_two', buddy_id)
+    form_data.append('status', 0)
+    form_data.append('action_user', user_id)
+    console.log(buddy_id)
+    const add_url = `http://127.0.0.1:8000/friendships/relationship/${user_id}/friend_request/${buddy_id}`
+    let res = await fetch(add_url, {
+      method : 'POST',
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       },
+       body :  form_data
+    })
+    let data = await res.json()
+    localStorage.setItem('buddy_list', JSON.stringify(data))
+    return data
+  }
 
   console.log('SUDASDUEARESHFUSEFSE: ', user.user)
 
@@ -95,10 +120,10 @@ function ProfileNU(props) {
                   {
                     true // change to check friendship
                     ?
-                    <Button> Add Buddy </Button>
-                  // <Button onClick = { () => }> Add Buddy </Button>
+                    <Button onClick = {() => add_buddy(buddy_id)} >Add Buddy</Button>
+                    // <Button onClick = { () => }> Add Buddy </Button>
                     :
-                  <Button> Delete Buddy</Button>
+                  <Button> UnBuddy</Button>
 
                   }
                 </div>
