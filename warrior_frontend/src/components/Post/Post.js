@@ -31,13 +31,19 @@ function Post(props) {
               <small>
                 <Card.Footer className="text-muted footer" >
                   <p>{post['created_at']}</p>
-                  <Button size="sm" variant="outline-danger" 
-                  onClick={
-                    () => {
-                      UserAPI.deletePost(post['id'])
-                    }
-                  }>
-                    Delete </Button>
+                  {
+                    props.isLoggedInUser
+                    ?
+                    <Button size="sm" variant="outline-danger" 
+                    onClick={
+                      () => {
+                        UserAPI.deletePost(post['id'])
+                      }
+                    }>
+                      Delete </Button>
+                    :
+                    null
+                  }
                 </Card.Footer>
               </small>
           </Card>
@@ -54,16 +60,24 @@ function Post(props) {
 
   return (
     <div>
-      <Form onSubmit = {handlePost}>
-        <Form.Group controlId="exampleForm.ControlTextarea1 ">
-          <Form.Label><h3><b>What are you up to?</b></h3></Form.Label>
-          <Form.Control name = 'post' as="textarea" />
-      </Form.Group>
+      {
+        props.isLoggedInUser
+        ?
+        <>
+        <Form onSubmit = {handlePost}>
+          <Form.Group controlId="exampleForm.ControlTextarea1 ">
+            <Form.Label><h3><b>What are you up to?</b></h3></Form.Label>
+            <Form.Control name = 'post' as="textarea" />
+        </Form.Group>
 
-      <Button variant="primary" type="submit">
-        Post
-      </Button>
-      </Form>
+        <Button variant="primary" type="submit">
+          Post
+        </Button>
+        </Form>
+        </>
+        :
+        null
+      }
       
       <br />
       <div className = 'posts'>

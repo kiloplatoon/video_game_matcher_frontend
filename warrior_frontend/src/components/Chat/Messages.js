@@ -61,22 +61,25 @@ function Messages() {
     const channels = chatClient.queryChannels(filters, sort);
     console.log(channel)
     return (
-      <Chat client={chatClient} theme={'messaging light'}>
-        <ChannelList
-        
-        // filters={filters}
-        // sort={sort}
-        // Preview={MyChannelPreview}
-        />
-        <Channel >
-          <Window>
-            <ChannelHeader />
-            <MessageList />
-            <MessageInput />
-          </Window>
-          <Thread />
-        </Channel>
-      </Chat>
+      <div className='container'>
+
+        <Chat client={chatClient} theme={'messaging light'}>
+          <ChannelList
+          
+          // filters={filters}
+          // sort={sort}
+          // Preview={MyChannelPreview}
+          />
+          <Channel >
+            <Window>
+              <ChannelHeader />
+              <MessageList />
+              <MessageInput />
+            </Window>
+            <Thread />
+          </Channel>
+        </Chat>
+      </div>
     )
   }
   return (

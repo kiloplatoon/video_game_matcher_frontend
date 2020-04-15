@@ -88,8 +88,20 @@ const deletePost = async (userId) => {
     }
   })
   let data = await res.json()
-  console.log(data)
+}
 
+const updateGamePref = async (userId, obj) => {
+  let res = await fetch(`${URL}profile/${userId}/edit/`,{
+    method : 'POST',
+    headers : {
+      'Accept' : 'application/json',
+      'content-type' : 'application/json',
+      'Authorization' : `token ${localStorage.getItem('token')}`
+    },
+    body : JSON.stringify(obj)
+  })
+  let data = await res.json()
+  return data
 }
 
 export default {
@@ -102,4 +114,5 @@ export default {
   fetchUserStatus,
   createUserPost,
   deletePost,
+  updateGamePref,
 }
