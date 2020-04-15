@@ -32,7 +32,7 @@ const Navigation = (props) => {
           localStorage.getItem('isAuthenticated') == 'true'
           ?
             <>
-              <Nav.Link href="/profile">Profile</Nav.Link>
+              <Nav.Link href="/profile/myprofile/1">Profile</Nav.Link>
               <Nav.Link href="/finder">Buddy Finder</Nav.Link>
               <Nav.Link href="/chat">Chat</Nav.Link>
               <Nav.Link onClick={props.handleLogout} href="/">Logout</Nav.Link>

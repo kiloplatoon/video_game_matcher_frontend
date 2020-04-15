@@ -1,3 +1,5 @@
+// for viewing another person's profile
+
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
@@ -90,9 +92,15 @@ function ProfileNU(props) {
                   <h2>Friends</h2>
                 </div>
                 <div className="friend-buttons">
-                  <Button> All Buddies </Button>
-                  <Button> Pending </Button>
-                  <Button> Sent </Button>
+                  {
+                    true // change to check friendship
+                    ?
+                    <Button> Add Buddy </Button>
+                  // <Button onClick = { () => }> Add Buddy </Button>
+                    :
+                  <Button> Delete Buddy</Button>
+
+                  }
                 </div>
               </div>
 
@@ -102,7 +110,7 @@ function ProfileNU(props) {
                 <h1>FRIENDS GO HERE</h1>
               </div>
 
-            {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
+            {/* END OF BRYANS FRIEND AREA. DO NOT CODE ABOVE THIS */}
             <hr className = 'divider' />
             <div className='status'>
                 <Post 

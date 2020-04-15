@@ -31,11 +31,13 @@ function sent_buddy_requests () {
   let sent_buddy_requests = []
   let sent_buddy_id_requests = []
 
-  for (var i = 0; i < list['list'].length; i++){
-    sent_buddy_requests.push(list['list'][i]['username'])
-    sent_buddy_id_requests.push(list['list'][i]['id'])
+  // console.log("WTF = ", list['list'])
+  if (list['list'] != null && list['list'].length > 0) {
+    for (var i = 0; i < list['list'].length; i++){
+      sent_buddy_requests.push(list['list'][i]['username'])
+      sent_buddy_id_requests.push(list['list'][i]['id'])
+    }
   }
-
   return (
     <div>
       <h1>Sent Buddy Requests</h1>

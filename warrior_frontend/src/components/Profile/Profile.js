@@ -103,16 +103,16 @@ function Profile(props) {
                   <h2>Friends</h2>
                 </div>
                 <div className="friend-buttons">
-                  <Button> All Buddies </Button>
-                  <Button> Pending </Button>
-                  <Button> Sent </Button>
+                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/all_my_buddies`}> <Button>All My Buddies</Button></Link><br></br>
+                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/received_buddy_requests`}> <Button>Received Buddy Requests</Button></Link><br></br>
+                <Link to = {`/profile/myprofile/${localStorage.getItem('current_user')}/sent_buddy_requests`}> <Button>Sent Buddy Requests</Button></Link><br></br>
                 </div>
               </div>
 
               <hr className = 'divider' />
               
               <div className='populate-friends'>
-                <h1>FRIENDS GO HERE</h1>
+              <h1>FRIENDS GO HERE {localStorage.getItem('current_user')}</h1>
               </div>
 
             {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
