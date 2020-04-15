@@ -1,43 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import UserAPI from '../../api/UserAPI';
-import './Profile.css';
-import profilepic from '../../images/profilepic.jpeg';
-import Post from '../Post/Post';
+import React from 'react'
 
-function Profile(props) {
-  console.log('inside PROFILE: ', props.match.params.userId)
-  const [user, setUser] = useState([])
-  const [currentUser, setCurrentUser] = useState([])
-  const isLoggedInUser = true
-  
-  console.log('Profile Current User: ', currentUser)
-  console.log('Profile User: ', user)
-
-  const fetchCurrentUser = async () => {
-    let res = await fetch('http://localhost:8000/auth/current_user/', {
-    method : 'GET',
-    headers : {
-      'Accept' : 'application/json',
-      'content-type' : 'application/json',
-      'Authorization' : `token ${localStorage.getItem('token')}`
-    }
-  })
-    let data = await res.json()
-    console.log('dadawdadwad: ', data)
-    setCurrentUser(data)
-
-    res = await fetch(`http://localhost:8000/profile/${data['id']}/details/`)
-    data = await res.json()
-    console.log('userProfInfoData: ', data)
-    setUser(data)
-  }
-
-  useEffect(()=> {
-    fetchCurrentUser()
-  },[])
-
+export default function UserProfile() {
   return (
     <div className='container profile'>
       {
@@ -115,10 +78,7 @@ function Profile(props) {
             {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
             <hr className = 'divider' />
             <div className='status'>
-                <Post 
-                  userId = {props.match.params.userId}
-                  isLoggedInUser = {isLoggedInUser}
-                />
+                <Post userId = {props.match.params.userId}/>
             </div>
           </div>
           </>
@@ -129,5 +89,3 @@ function Profile(props) {
     </div>
   )
 }
-
-export default Profile
