@@ -10,6 +10,7 @@ import Navigation from './components/Navigation';
 import FriendshipsPage from './components/FriendshipsPage/FriendshipsPage'
 import Finder from './components/Finder/Finder'
 
+
 function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
