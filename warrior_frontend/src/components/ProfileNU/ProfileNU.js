@@ -69,6 +69,7 @@ function ProfileNU(props) {
                   <div style={{textAlign: 'center'}}>
                     <br />
                     <h3> {`${user.user['first_name']} ${user.user['last_name']}`}</h3>
+                    <p><b>Username: </b> {user.user['username']}</p>
                   </div>
                   :
                   null
