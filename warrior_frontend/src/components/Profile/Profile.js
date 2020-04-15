@@ -1,72 +1,124 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import UserAPI from '../../api/UserAPI';
 import './Profile.css';
+import profilepic from '../../images/profilepic.jpeg';
+import Post from '../Post/Post';
 
 function Profile(props) {
-  const user = props.userProfileInfo.user
+  console.log('inside PROFILE: ', props.match.params.userId)
+  const [user, setUser] = useState([])
+  const [currentUser, setCurrentUser] = useState([])
+  
+  console.log('Profile Current User: ', currentUser)
+  console.log('Profile User: ', user)
+
+  const fetchCurrentUser = async () => {
+    let res = await fetch('http://localhost:8000/auth/current_user/', {
+    method : 'GET',
+    headers : {
+      'Accept' : 'application/json',
+      'content-type' : 'application/json',
+      'Authorization' : `token ${localStorage.getItem('token')}`
+    }
+  })
+    let data = await res.json()
+    console.log('dadawdadwad: ', data)
+    setCurrentUser(data)
+
+    res = await fetch(`http://localhost:8000/profile/${data['id']}/details/`)
+    data = await res.json()
+    console.log('userProfInfoData: ', data)
+    setUser(data)
+  }
 
   useEffect(()=> {
-    props.fetchUserProfileInfo()
+    fetchCurrentUser()
   },[])
-  console.log('this is a user: ', user)
+
   return (
-    <div className='container'>
+    <div className='container profile'>
       {
         localStorage.getItem('isAuthenticated') == 'true'
         ?
           <div className='profile-parent'>
             
             <div className='profile-img'>
-              <img src='https://via.placeholder.com/150' />
-              {
-                user !== undefined
-                ?
-                  <h3> {user['first_name']}</h3>
-                :
-                  null
-              }
-            </div>
+              <img src={`${[profilepic]}`} />
 
-            <div className='profile-info'>
-              <div>
               {
-                user !== undefined
-                ?
-                  <h3> {user['username']}</h3>
-                :
-                  null
-              }
-                <div>
-                  <h4 className='info-inline'>Casual or Competitive: </h4>
-                  <p className='info-inline'>{props.userProfileInfo.casual_competitive}</p>
-                </div>
-                <div>
-                  <h4 className='info-inline'> Platforms:</h4>
-                  <p className='info-inline'>{props.userProfileInfo.platform}</p>
-                </div>
-                <div>
-                  <h4 className='info-inline'> Game(s):</h4> 
-                  <p className='info-inline'>{props.userProfileInfo.game}</p>
-                </div>
-              </div>
-
-              <div>
-                {
-                  user !== undefined
+                  user.user
                   ?
-                    <Link to = {`/profile/${user.id}/edit`}> <Button>Edit</Button></Link>
+                  <div style={{textAlign: 'center'}}>
+                    <br />
+                    <h3> {`${user.user['first_name']} ${user.user['last_name']}`}</h3>
+                  </div>
                   :
-                    null
+                  null
                 }
-                <button> Add Friend</button>
-                <button> Delete Friend</button>
-                <br />
-                <button> Chat</button>
-              </div>
-            </div>
 
-          </div> 
+              <div style={{marginTop: '8%'}}>
+                <hr className = 'divider' />
+                <p className="text_underline"><b>About Me</b></p>
+
+                <p> {user.bio} </p>
+                <br />
+                <hr className = 'divider' />
+                <br />
+
+                <p className="text_underline"><b>Gaming Preferences</b></p>
+
+                <p><b>Platform:</b> {user.platform}</p>
+                <p><b>Game: </b> {user.game}</p>
+                <p><b>Gaming Style:</b> {user.casual_competitive}</p>
+                <br />
+
+                <hr className = 'divider' />
+                <br />
+                <p className="text_underline"><b>Contact</b></p>
+                <p><b>Email:</b> {currentUser.email}</p>
+
+                <br />
+                <hr className = 'divider' />
+                <br />
+                <p className="text_underline"><b>Settings</b></p>
+                <Link to = {`/profile/${user.id}/edit`}>Edit</Link>
+
+              </div>
+            {/* END PROFILE IMG */}
+            </div> 
+
+            
+            {/* THIS IS FOR BRYAN'S FRIEND */}
+            <>
+            <div className='profile-info'>
+              {/* Place INSIDE HERE */}
+              <div className='friends'>
+                <div className='friend-header'>
+                  <h2>Friends</h2>
+                </div>
+                <div className="friend-buttons">
+                  <Button> All Buddies </Button>
+                  <Button> Pending </Button>
+                  <Button> Sent </Button>
+                </div>
+              </div>
+
+              <hr className = 'divider' />
+              
+              <div className='populate-friends'>
+                <h1>FRIENDS GO HERE</h1>
+              </div>
+
+            {/* END OF BRYANS FRIEND AREA. DO NOT CODE BELOW THIS */}
+            <hr className = 'divider' />
+            <div className='status'>
+                <Post userId = {props.match.params.userId}/>
+            </div>
+          </div>
+          </>
+          </div>
         :
          <Redirect to = '/' />
       }
