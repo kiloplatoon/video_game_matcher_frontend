@@ -3,7 +3,6 @@ import { Chat, Channel, ChannelList, Window } from 'stream-chat-react';
 import { ChannelHeader, MessageList } from 'stream-chat-react';
 import { MessageInput, Thread } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
-import { Button, ButtonGroup } from 'react-bootstrap'
 
 import 'stream-chat-react/dist/css/index.css';
 
@@ -66,9 +65,8 @@ function Messages() {
 
         <Chat client={chatClient} theme={'messaging light'}>
           <ChannelList
-          
-          // filters={filters}
-          // sort={sort}
+          filters={filters}
+          sort={sort}
           // Preview={MyChannelPreview}
           />
           <Channel >
