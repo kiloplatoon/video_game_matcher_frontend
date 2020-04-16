@@ -1,0 +1,15 @@
+.bg {
+  margin-top: -1%;
+  background: url('../../images//bg-large.jpg') no-repeat center 30% fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  margin-bottom: 5%;
+  border: 1px solid #343A40;
+}
+
+.logo {
+  margin-top: 10%;
+}

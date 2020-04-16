@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Card } from 'react-bootstrap';
+import './Friendships.css';
 
 
 function received_buddy_requests () {
@@ -55,26 +56,36 @@ function received_buddy_requests () {
     }
   }
   return (
-    <div className='container'>
-      <h1>Received Buddy Requests</h1>
+    <div className='container friends-list'>
+      <div className = 'inside-friendslist'>
 
-      <ul>
-      {
-        received_buddy_requests.map((value, index) => {
-        let buddy_id = list['list'][index]['id']
+      
+        <h1>Received Buddy Requests</h1>
+        <hr style={{width: '50%'}}/>
+        <ul>
+        {
+          received_buddy_requests.map((value, index) => {
+          let buddy_id = list['list'][index]['id']
 
-        temp = received_buddy_id_requests[index]
-        return (
-          <div>
-          <Link to = {`/profile/${temp}`}> {value}</Link><br></br>
-          <button onClick = {() => accept_buddy(buddy_id)} >Accept</button>
+          temp = received_buddy_id_requests[index]
+          return (
+            <div>
+            {/* <Link to = {`/profile/${temp}`}> {value}</Link><br></br>
+            <Button classname='secondary' onClick = {() => accept_buddy(buddy_id)} >Accept</Button> */}
 
-          </div>
-        )
-      })}
-    </ul>    
+            <Card style={{width:'50%', margin: 'auto', marginTop: '5%'}}>
+              <Card.Header as="h5">Username : {value}</Card.Header>
+              <Card.Body>
+                <Link to = {`/profile/${temp}`}><Button style={{marginRight : '10px'}}variant="secondary">View Profile</Button></Link>
+                <Button variant='success' onClick = {() => accept_buddy(buddy_id)} >Accept</Button>
+              </Card.Body>
+            </Card>
+            </div>
+            )
+          })}
+        </ul>    
 
-
+      </div>  
     </div>
       
   )

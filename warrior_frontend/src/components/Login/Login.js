@@ -5,27 +5,29 @@ import './Login.css';
 
 const Login = (props) => {
   return(
-    <div className = 'login'>
-      <Form onSubmit = {props.handleLogin}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" name='email' placeholder="Enter email" />
-        </Form.Group>
+    <div className='outer-login'>
+      <div className = 'login'>
+        <Form onSubmit = {props.handleLogin}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" name='email' placeholder="Enter email" />
+          </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" name='password' placeholder="Password" />
-        </Form.Group>
-        <div className='btn-parent'>
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-          <div className='btn-child'>
-            <p style={{marginRight:'25px', paddingTop: '15px'}}>New User?</p>
-            <Link to ='/registration'><Button>Sign Up</Button></Link>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" name='password' placeholder="Password" />
+          </Form.Group>
+          <div className='btn-parent'>
+            <Button variant="primary" type="submit">
+              Login
+            </Button>
+            <div className='btn-child'>
+              <p style={{marginRight:'25px', paddingTop: '15px'}}>New User?</p>
+              <Link to ='/registration'><Button>Sign Up</Button></Link>
+            </div>
           </div>
-        </div>
-      </Form>
+        </Form>
+      </div>
     </div>
   )
 }

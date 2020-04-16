@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Login from '../Login/Login';
 import { Redirect } from 'react-router-dom';
+import './LandingPage.css';
 
 const LandingPage = (props) => {
 
@@ -26,11 +27,11 @@ const LandingPage = (props) => {
   },)
 
   return (
-    <div className='container'>
+    <div className=' bg'>
       {
         !(localStorage.getItem('isAuthenticated') == 'true')
         ?
-          <div className='container' style={{marginTop:'15%'}}>
+          <div className=' container logo'>
           <Login 
             {...props}
           />

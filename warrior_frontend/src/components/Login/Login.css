@@ -1,17 +1,21 @@
 .login {
-  background: url('../../images//bg-large.jpg') no-repeat center 30% fixed; 
+  /* background: url('../../images//bg-large.jpg') no-repeat center 30% fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
   margin: auto;
   padding: 50px;
-  border: 1px solid blue;
+  border: 1px solid #343A40;
   background-color: #343A40;
   opacity: .8;
   width: 50%;
   color: white;
 }
+/* 
+.outer-login {
+  margin-top: 5%;
+} */
 
 .login Form {
   width: 100%;
