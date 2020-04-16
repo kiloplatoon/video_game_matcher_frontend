@@ -9,23 +9,24 @@ const FinderList = ({ profiles, platform, game, difficulty }) => {
     profiles.map((profile, id) => {
       if (profile.game === game && profile.platform === platform && profile.casual_competitive === difficulty) {
       profilesListArr.push(
-        <Card key={id}>
-          {/* <Card.Img variant="top" src={profile.profile_picture} /> */}
-          <Card.Body>
-            <Card.Title>{profile.user.username}</Card.Title>
-            <Card.Text>
-            {profile.bio}
-            </Card.Text>
-          </Card.Body>
-          <Card.Footer>
-            <small className="text-muted">Platform: {profile.platform}</small>
-            <br />
-            <small className="text-muted">Game: {profile.game} - </small>
-            <small className="text-muted">{profile.casual_competitive}</small>
-          </Card.Footer>
-          <Link to = {`/profile/${profile.user.id}`}><Button variant="primary" >Visit Profile</Button></Link>
-          {/* <MessageButton variant="primary" target={profile.username} >Send Message</MessageButton> */}
-        </Card>
+        <Link to = {`/profile/${profile.user.id}`}>
+          <Card key={id}>
+            {/* <Card.Img variant="top" src={profile.profile_picture} /> */}
+            <Card.Body>
+              <Card.Title>{profile.user.username}</Card.Title>
+              <Card.Text>
+              {/* {profile.bio} */}
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <small className="text-muted">Platform: {profile.platform}</small>
+              <br />
+              <small className="text-muted">Game: {profile.game} - </small>
+              <small className="text-muted">{profile.casual_competitive}</small>
+            </Card.Footer>
+            {/* <MessageButton variant="primary" target={profile.username} >Send Message</MessageButton> */}
+          </Card>
+        </Link>
       )
       }
     })

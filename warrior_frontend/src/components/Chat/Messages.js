@@ -65,9 +65,8 @@ function Messages() {
 
         <Chat client={chatClient} theme={'messaging light'}>
           <ChannelList
-          
-          // filters={filters}
-          // sort={sort}
+          filters={filters}
+          sort={sort}
           // Preview={MyChannelPreview}
           />
           <Channel >
