@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
+import './Friendships.css';
 
 import FriendshipsAPI from '../../api/FriendshipsAPI'
 
@@ -49,7 +50,7 @@ function all_my_buddies () {
     return data
   }
 
-  if (list['list'] != null && list['list'].length > 0) {
+  if (list != null && list['list'].length > 0) {
     for (var i = 0; i < list['list'].length; i++){
       buddy_list.push(list['list'][i]['username'])
       temp = list['list'][i]['username']
@@ -58,23 +59,38 @@ function all_my_buddies () {
   }
 
   return (
-    <div className='container'>
+    <div className='container friends-list'>
+      <div className='inside-friendslist'>
+      
       <h1>All My Buddies</h1>
 
-    <ul>
-      {
-        buddy_list.map((value, index) => {
-        let buddy_id = list['list'][index]['id']
-        console.log(buddy_list)
-        const delete_url = 'http://127.0.0.1:8000/friendships/' + user_id + '/delete_friend/' + buddy_id
-        return (
-          <div>
-          <Link to = {`/profile/${buddy_id}`}> {value}</Link><br></br>
-          <button onClick = {() => delete_buddy(buddy_id)} >Unbuddy</button>
-          </div>
-        )
-      })}
-    </ul>    
+      <hr style={{width: '50%'}}/>
+
+        <ul>
+          {
+            buddy_list.map((value, index) => {
+            let buddy_id = list['list'][index]['id']
+            console.log(buddy_list)
+            const delete_url = 'http://127.0.0.1:8000/friendships/' + user_id + '/delete_friend/' + buddy_id
+            return (
+              <div>
+                {/* <Link to = {`/profile/${buddy_id}`}> {value}</Link><br></br>
+                <button onClick = {() => delete_buddy(buddy_id)} >Unbuddy</button> */}
+              
+
+                <Card style={{width:'50%', margin: 'auto', marginTop: '5%'}}>
+                  <Card.Header as="h5">Username : {value}</Card.Header>
+                  <Card.Body>
+                    <Link to = {`/profile/${buddy_id}`}><Button variant="secondary">View Profile</Button></Link>
+                    <Link to = {'/chat'}> <Button variant="primary">Message</Button> </Link>
+                    <Button onClick = {() => delete_buddy(buddy_id)} variant="danger">UnBuddy</Button>
+                  </Card.Body>
+                </Card>
+              </div>
+            )
+          })}
+        </ul>
+      </div>  
     </div>
   )
 }

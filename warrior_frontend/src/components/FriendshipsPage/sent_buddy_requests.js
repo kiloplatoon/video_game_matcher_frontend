@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Card } from 'react-bootstrap';
 
 
 function sent_buddy_requests () {
@@ -32,27 +32,36 @@ function sent_buddy_requests () {
   let sent_buddy_id_requests = []
 
   // console.log("WTF = ", list['list'])
-  if (list['list'] != null && list['list'].length > 0) {
+  if (list != null && list['list'].length > 0) {
     for (var i = 0; i < list['list'].length; i++){
       sent_buddy_requests.push(list['list'][i]['username'])
       sent_buddy_id_requests.push(list['list'][i]['id'])
     }
   }
   return (
-    <div>
-      <h1>Sent Buddy Requests</h1>
+    <div className='container friends-list'>
+      <div className='inside-friendslist'>
+          <h1>Sent Buddy Requests</h1>
+          <hr style={{width: '50%'}}/>
+          <ul>
+          {
+            sent_buddy_requests.map((value, index) => {
+            temp = sent_buddy_id_requests[index]
+            return (
+              <div>
 
-      <ul>
-      {
-        sent_buddy_requests.map((value, index) => {
-        temp = sent_buddy_id_requests[index]
-        return (
-          <div>
-          <Link to = {`/profile/${temp}`}> {value}</Link><br></br>
-          </div>
-        )
-      })}
-    </ul>    
+                <Card style={{width:'50%', margin: 'auto', marginTop: '5%'}}>
+                  <Card.Header as="h5">Username : {value}</Card.Header>
+                  <Card.Body>
+                    <Link to = {`/profile/${temp}`}><Button variant="secondary">View Profile</Button></Link>
+                  </Card.Body>
+                </Card>
+              </div>
+            )
+          })}
+        </ul>    
+      </div>
+      
 
 
     </div>
